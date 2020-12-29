@@ -1,0 +1,9 @@
+**/.metadata
+**/.sonarlint
+**/.settings
+**/.cproject
+**/.project
+**/*cppcheck*
+**/*MISRA*
+**/Debug
+**/Dictionary.txt

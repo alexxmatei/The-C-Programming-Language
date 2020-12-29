@@ -6,4 +6,5 @@
 **/*cppcheck*
 **/*MISRA*
 **/Debug
+**/Resources
 **/Dictionary.txt

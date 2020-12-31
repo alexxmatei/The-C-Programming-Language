@@ -7,8 +7,8 @@
 
 #include <stdio.h>
 
-/* print Fahrenheit-Celsius table
- *  for fahr = 0, 20, ..., 300; floating-point version */
+/* print Celsius-Fahrenheit table
+ *  for celsius = 0, 20, ..., 300; floating-point version */
 
 main()
 {
@@ -19,11 +19,11 @@ main()
 	upper = 300;	/* upper limit */
 	step = 20;		/* step size */
 
-	fahr = lower;
-	printf("Fahr   Celsius\n");
-	while (fahr <= upper) {
-		celsius = (5.0/9.0) * (fahr-32.0);
-		printf("%3.0f %8.1f\n", fahr, celsius);
-		fahr = fahr + step;
+	printf("Celsius  Fahrenheit\n"); /* prints a header to the table */
+	celsius = lower;
+	while (celsius <= upper) {
+		fahr = (9.0 / 5.0) * celsius + 32.0;
+		printf("%5.0f %11.1f\n", celsius, fahr);
+		celsius = celsius + step;
 	}
 }

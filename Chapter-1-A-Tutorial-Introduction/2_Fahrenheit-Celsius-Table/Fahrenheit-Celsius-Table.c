@@ -21,11 +21,8 @@ main()
 
 	fahr = lower;
 	while (fahr <= upper) {
-     /* celsius = (fahr - 32) * (5 / 9) is incorrect,
-      * the result of the operation would be 0 because (5 / 9) is integer division
-      * and the result would be truncated of the fractional part */
 		celsius = 5 * (fahr - 32) / 9;
-		printf("%d\t%d\n", fahr, celsius);
+		printf("%3d %6d\n", fahr, celsius);
 		fahr = fahr + step;
 	}
 }

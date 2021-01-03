@@ -31,5 +31,7 @@ int main()
 
 float fahrToCelsius(int fahr)
 {
-	return F5_K / F9_K * (fahr - S32_K);
+	return F5_K / F9_K * ((float)fahr - S32_K);
 }
+
+

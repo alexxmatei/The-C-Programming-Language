@@ -3,6 +3,8 @@
  *
  *  Created on: 4 Jan 2021
  *      Author: Al
+ *
+ *  Exercise: Verify that the expression getchar() != EOF is - or 1.
  */
 
 #include <stdio.h>

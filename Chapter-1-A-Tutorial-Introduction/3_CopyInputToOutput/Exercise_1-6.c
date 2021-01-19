@@ -25,4 +25,6 @@ int main()
 	(void)printf("For the following character: ");
 	(void)putchar(c);
 	(void)printf(", with the value %3d the expression value is: %u\n", c, expressionValue);
+
+	return 0;
 }

@@ -9,13 +9,20 @@
 
 /* count lines in input */
 
-main()
+int main()
 {
-	int c, nl;
+	int c;
+	int nl;
 
 	nl = 0;
-	while ((c=getchar()) != EOF)
+	while ( (c = getchar()) != EOF )
+	{
 		if (c == '\n')
+		{
 			++nl;
-	printf("%d\n", nl);
+		}
+	}
+	(void)printf("%d\n", nl);
+
+	return 0;
 }

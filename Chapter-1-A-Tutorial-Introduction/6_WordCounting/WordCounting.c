@@ -11,22 +11,35 @@
 #define OUT 0	/* outside a word */
 
 /* count lines, words, and characters in input */
-main()
+int main()
 {
-	int c, nl, nw, nc, state;
+	int c;
+	int nl;
+	int nw;
+	int nc;
+	int state;
 
 	state = OUT;
 	nl = nw = nc = 0;
 	while ((c = getchar()) != EOF) {
 		++nc;
 		if (c == '\n')
+		{
 			++nl;
-		if (c == ' ' || c == '\n' || c == '\t')
+		}
+		if ( (c == ' ') || (c == '\n') || (c == '\t') )
+		{
 			state = OUT;
+		}
 		else if (state == OUT) {
 			state = IN;
 			++nw;
 		}
+		else {
+			/* no action required */
+		}
 	}
-	printf("%d %d %d\n", nl, nw, nc);
+	(void)printf("%d %d %d\n", nl, nw, nc);
+
+	return 0;
 }

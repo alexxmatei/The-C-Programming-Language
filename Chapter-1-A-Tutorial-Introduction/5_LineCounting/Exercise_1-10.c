@@ -7,14 +7,17 @@
 
 #include <stdio.h>
 
+typedef unsigned char bool;
+#define TRUE (bool)1u
+#define FALSE (bool)0u
+
 int main()
 {
 	int c;
-	char flag = 0;
 
 	while ( ( c = getchar() ) != EOF )
 	{
-		flag = 0;
+		bool flag = 0;
 
 		if ( c == '\t' )
 		{
@@ -36,7 +39,7 @@ int main()
 			(void)putchar('\\');
 		}
 
-		if ( flag == 0 )
+		if ( flag == FALSE )
 		{
 			(void)putchar(c);
 		}

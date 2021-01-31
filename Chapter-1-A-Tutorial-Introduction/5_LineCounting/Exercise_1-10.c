@@ -16,7 +16,7 @@ int main()
 {
 	int c;
 
-	while ( ( c = getchar() ) != EOF )
+	for ( c = getchar(); c != EOF; c = getchar() )
 	{
 		bool flag = 0;
 

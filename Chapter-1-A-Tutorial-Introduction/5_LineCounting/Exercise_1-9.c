@@ -13,7 +13,7 @@ int main()
 	int c;
 	int bc = 0; /* blank counter */
 
-	while ( (c = getchar() ) != EOF )
+	for ( c = getchar(); c != EOF; c = getchar() )
 	{
 		if ( c == ' ' )
 		{

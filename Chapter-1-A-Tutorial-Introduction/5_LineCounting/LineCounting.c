@@ -14,7 +14,7 @@ int main()
 	int nl;
 
 	nl = 0;
-	while ( (c = getchar()) != EOF )
+	for ( c = getchar(); c != EOF; c = getchar() )
 	{
 		if (c == '\n')
 		{

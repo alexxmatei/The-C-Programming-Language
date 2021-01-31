@@ -21,7 +21,7 @@ int main()
 
 	state = OUT;
 	nl = nw = nc = 0;
-	while ((c = getchar()) != EOF) {
+	for ( c = getchar(); c != EOF; c = getchar() ) {
 		++nc;
 		if (c == '\n')
 		{

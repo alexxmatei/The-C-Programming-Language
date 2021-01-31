@@ -15,7 +15,7 @@ int main()
 	int t = 0;
 	int nl = 0;
 
-	while ( ( c = getchar() ) != EOF )
+	for ( c = getchar(); c != EOF; c = getchar() )
 	{
 		if ( c == ' ' )
 		{

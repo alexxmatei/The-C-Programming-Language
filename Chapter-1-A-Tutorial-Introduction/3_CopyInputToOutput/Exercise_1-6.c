@@ -8,6 +8,7 @@
  */
 
 #include <stdio.h>
+
 typedef unsigned char bool;
 
 /* copy input to output; 2nd version */

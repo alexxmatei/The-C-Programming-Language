@@ -8,6 +8,7 @@
 #include <stdio.h>
 
 typedef unsigned char bool;
+
 #define TRUE (bool)1u
 #define FALSE (bool)0u
 

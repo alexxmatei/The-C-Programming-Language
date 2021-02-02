@@ -11,20 +11,20 @@
 int main()
 {
 	int c;
-	int b = 0;
-	int t = 0;
-	int nl = 0;
+	int nb = 0; /* number of blanks */
+	int nt = 0; /* number of tabs */
+	int nl = 0; /* number of newlines */
 
 	for ( c = getchar(); c != EOF; c = getchar() )
 	{
 		if ( c == ' ' )
 		{
-			++b;
+			++nb;
 		}
 
 		if ( c == '\t' )
 		{
-			++t;
+			++nt;
 		}
 
 		if ( c == '\n' )
@@ -32,6 +32,9 @@ int main()
 			++nl;
 		}
 	}
-	(void)printf("\nNumber of blanks: %d\nNumber of tabs: %d\nNumber of newlines: %d\n", b, t, nl);
+	(void)putchar('\n');
+	(void)printf("Number of blanks:   %d\n", nb);
+	(void)printf("Number of tabs:     %d\n", nt);
+	(void)printf("Number of newlines: %d\n", nl);
 	return 0;
 }

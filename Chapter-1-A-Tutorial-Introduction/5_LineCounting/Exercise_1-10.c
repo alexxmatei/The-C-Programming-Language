@@ -38,6 +38,7 @@ int main()
 		{
 			flag = 1;
 			(void)putchar('\\');
+			(void)putchar('\\');
 		}
 
 		if ( flag == FALSE )

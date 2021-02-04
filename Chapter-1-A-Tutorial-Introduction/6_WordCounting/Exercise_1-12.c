@@ -7,8 +7,8 @@
 
 #include <stdio.h>
 
-#define IN  1
-#define OUT 0
+#define IN  1	/* inside a word */
+#define OUT 0	/* outside a word */
 
 /* ToDo: fix program so that it doesn't enter multiple newlines for multiple tabs, blanks or newlines */
 
@@ -36,7 +36,8 @@ int main()
 			/* no action required */
 		}
 
-		if ( state == IN ) {
+		if ( state == IN )
+		{
 			(void)putchar(c);
 		}
 	}

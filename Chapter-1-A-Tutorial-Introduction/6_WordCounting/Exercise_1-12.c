@@ -10,24 +10,25 @@
 #define IN  1	/* inside a word */
 #define OUT 0	/* outside a word */
 
-/* ToDo: fix program so that it doesn't enter multiple newlines for multiple tabs, blanks or newlines */
-
 /* prints given input, one word per line */
 int main()
 {
-	int c;
-	int state;
-	c = 0;
-	state = OUT;
+	int c = 0;
+	int lc = 0; /* line counter, counts number of consecutive newlines outputted */
+	int state = OUT;
 
 	for ( c = getchar(); c != EOF; c = getchar() )
 	{
-		if ( (c == ' ') || (c == '\t') || (c == '\n') )
+		if ( (c == ' ') || (c == '\t') || (c == '\n') ) /* not inside a word */
 		{
+			++lc;
 			state = OUT;
-			(void)putchar('\n');
+			if ( lc <= 1 )
+			{
+				(void)putchar('\n');
+			}
 		}
-		else if ( state == OUT )
+		else if ( state == OUT ) /* start of a word */
 		{
 			state = IN;
 		}
@@ -36,8 +37,9 @@ int main()
 			/* no action required */
 		}
 
-		if ( state == IN )
+		if ( state == IN ) /* inside a word */
 		{
+			lc = 0;
 			(void)putchar(c);
 		}
 	}

@@ -13,33 +13,26 @@
 /* prints given input, one word per line */
 int main()
 {
-	int c = 0;
-	int lc = 0; /* line counter, counts number of consecutive newlines outputted */
+	int c;
 	int state = OUT;
 
 	for ( c = getchar(); c != EOF; c = getchar() )
 	{
 		if ( (c == ' ') || (c == '\t') || (c == '\n') ) /* not inside a word */
 		{
-			++lc;
-			state = OUT;
-			if ( lc <= 1 )
+			if ( state == IN ) /* the end of a word */
 			{
+				state = OUT;
 				(void)putchar('\n');
 			}
 		}
 		else if ( state == OUT ) /* start of a word */
 		{
 			state = IN;
+			(void)putchar(c);
 		}
-		else
+		else /* inside a word */
 		{
-			/* no action required */
-		}
-
-		if ( state == IN ) /* inside a word */
-		{
-			lc = 0;
 			(void)putchar(c);
 		}
 	}

@@ -7,28 +7,39 @@
 
 #include <stdio.h>
 
-/* count digits, white space, others */
+#define DIGITS_NR 10 /* number of digits 0 through 9 */
 
-main()
+/* count digits, white space, others */
+int main()
 {
-	int c, i, nwhite, nother;
-	int ndigit[10];
+	int c;
+	int i;
+	int nwhite;
+	int nother;
+	int ndigit[DIGITS_NR];
 
 	nwhite = nother = 0;
-	for (i = 0; i < 10; ++i)
+	for (i = 0; i < DIGITS_NR; ++i) {
 		ndigit[i] = 0;
-
-	while ((c = getchar()) != EOF)
-		if (c >= '0' && c <= '9')
+	}
+	for ( c = getchar(); c != EOF; c = getchar() ) {
+		if ( (c >= '0') && (c <= '9') ) {
 			++ndigit[c-'0'];
-		else if (c == ' ' || c == '\n' || c == '\t')
+		}
+		else if ( (c == ' ') || (c == '\n') || (c == '\t') ) {
 			++nwhite;
-		else
+		}
+		else {
 			++nother;
+		}
+	}
 
-	printf("digits =");
-	for (i = 0; i < 10; ++i)
-		printf(" %d", ndigit[i]);
-	printf(", white space = %d, other = %d\n",
+	(void)printf("digits =");
+	for (i = 0; i < DIGITS_NR; ++i) {
+		(void)printf(" %d", ndigit[i]);
+	}
+	(void)printf(", white space = %d, other = %d\n",
 		nwhite, nother);
+
+	return 0;
 }

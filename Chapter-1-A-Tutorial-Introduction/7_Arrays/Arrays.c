@@ -24,7 +24,8 @@ int main()
 	}
 	for ( c = getchar(); c != EOF; c = getchar() ) {
 		if ( (c >= '0') && (c <= '9') ) {
-			++ndigit[c-'0'];
+			char chr = c; /* used to solve MISRA 2012 Rule 10.2 violation */
+			++ndigit[chr-'0'];
 		}
 		else if ( (c == ' ') || (c == '\n') || (c == '\t') ) {
 			++nwhite;

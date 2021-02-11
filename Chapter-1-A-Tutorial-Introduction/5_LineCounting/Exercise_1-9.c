@@ -13,20 +13,16 @@ int main()
 	int c;
 	int bc = 0; /* blank counter */
 
-	for ( c = getchar(); c != EOF; c = getchar() )
-	{
-		if ( c == ' ' )
-		{
+	for ( c = getchar(); c != EOF; c = getchar() ) {
+		if ( c == ' ' ) {
 			++bc;
 		}
 
-		if ( c != ' ' )
-		{
+		if ( c != ' ' ) {
 			bc = 0;
 		}
 
-		if ( bc <= 1 )
-		{
+		if ( bc <= 1 ) {
 			(void)putchar(c);
 		}
 	}

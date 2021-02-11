@@ -15,20 +15,16 @@ int main()
 	int nt = 0; /* number of tabs */
 	int nl = 0; /* number of newlines */
 
-	for ( c = getchar(); c != EOF; c = getchar() )
-	{
-		if ( c == ' ' )
-		{
+	for ( c = getchar(); c != EOF; c = getchar() ) {
+		if ( c == ' ' ) {
 			++nb;
 		}
 
-		if ( c == '\t' )
-		{
+		if ( c == '\t' ) {
 			++nt;
 		}
 
-		if ( c == '\n' )
-		{
+		if ( c == '\n' ) {
 			++nl;
 		}
 	}

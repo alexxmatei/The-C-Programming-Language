@@ -17,8 +17,7 @@ int main()
 	int c;
 	bool expressionValue;
 
-	while ( ( expressionValue = ( (c = getchar()) != EOF ) ) != 0 )
-	{
+	while ( ( expressionValue = ( (c = getchar()) != EOF ) ) != 0 ) {
 		(void)printf("\nFor the following character:'");
 		(void)putchar(c);
 		(void)printf("', with the value %3d the expression value is: %u\n", c, expressionValue);

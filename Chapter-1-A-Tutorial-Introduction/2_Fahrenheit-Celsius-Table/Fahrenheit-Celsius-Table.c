@@ -21,8 +21,7 @@ int main()
 {
 	int fahr;
 
-	for (fahr = LOWER; fahr <= UPPER; fahr = fahr + STEP)
-	{
+	for (fahr = LOWER; fahr <= UPPER; fahr = fahr + STEP) {
 		(void)printf("%3d %6.1f\n", fahr, fahrToCelsius(fahr));
 	}
 

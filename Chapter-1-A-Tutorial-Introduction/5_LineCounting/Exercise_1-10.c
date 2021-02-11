@@ -16,33 +16,28 @@ int main()
 {
 	int c;
 
-	for ( c = getchar(); c != EOF; c = getchar() )
-	{
+	for ( c = getchar(); c != EOF; c = getchar() ) {
 		bool flag = 0;
 
-		if ( c == '\t' )
-		{
+		if ( c == '\t' ) {
 			flag = 1;
 			(void)putchar('\\');
 			(void)putchar('t');
 		}
 
-		if ( c == '\b' )
-		{
+		if ( c == '\b' ) {
 			flag = 1;
 			(void)putchar('\\');
 			(void)putchar('b');
 		}
 
-		if ( c == '\\' )
-		{
+		if ( c == '\\' ) {
 			flag = 1;
 			(void)putchar('\\');
 			(void)putchar('\\');
 		}
 
-		if ( flag == FALSE )
-		{
+		if ( flag == FALSE ) {
 			(void)putchar(c);
 		}
 	}

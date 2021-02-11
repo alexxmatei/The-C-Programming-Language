@@ -23,12 +23,10 @@ int main()
 	nl = nw = nc = 0;
 	for ( c = getchar(); c != EOF; c = getchar() ) {
 		++nc;
-		if (c == '\n')
-		{
+		if (c == '\n') {
 			++nl;
 		}
-		if ( (c == ' ') || (c == '\n') || (c == '\t') )
-		{
+		if ( (c == ' ') || (c == '\n') || (c == '\t') ) {
 			state = OUT;
 		}
 		else if (state == OUT) {

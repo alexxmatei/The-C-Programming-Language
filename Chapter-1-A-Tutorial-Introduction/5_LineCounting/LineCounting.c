@@ -14,10 +14,8 @@ int main()
 	int nl;
 
 	nl = 0;
-	for ( c = getchar(); c != EOF; c = getchar() )
-	{
-		if (c == '\n')
-		{
+	for ( c = getchar(); c != EOF; c = getchar() ) {
+		if (c == '\n') {
 			++nl;
 		}
 	}

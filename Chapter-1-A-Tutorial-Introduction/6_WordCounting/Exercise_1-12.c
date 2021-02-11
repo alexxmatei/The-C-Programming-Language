@@ -16,23 +16,18 @@ int main()
 	int c;
 	int state = OUT;
 
-	for ( c = getchar(); c != EOF; c = getchar() )
-	{
-		if ( (c == ' ') || (c == '\t') || (c == '\n') ) /* not inside a word */
-		{
-			if ( state == IN ) /* the end of a word */
-			{
+	for ( c = getchar(); c != EOF; c = getchar() ) {
+		if ( (c == ' ') || (c == '\t') || (c == '\n') ) { /* not inside a word */
+			if ( state == IN ) { /* the end of a word */
 				state = OUT;
 				(void)putchar('\n');
 			}
 		}
-		else if ( state == OUT ) /* start of a word */
-		{
+		else if ( state == OUT ) { /* start of a word */
 			state = IN;
 			(void)putchar(c);
 		}
-		else /* inside a word */
-		{
+		else { /* inside a word */
 			(void)putchar(c);
 		}
 	}

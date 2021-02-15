@@ -10,17 +10,20 @@
 #define IN  1  /* inside a word */
 #define OUT 0  /* outside a word */
 #define MAX_WORD_LEN 20 /* maximum word length */
-#define INDEX_WORD_LEN (i + 1)
 
 /* prints a histogram of the lengths of words in input */
 /* ToDo Optimise code if a good solution is found;
- * having to re-iterate through the whole array every time an action is performed takes a lot of time */
+ * having to re-iterate through the whole array
+ * every time an action is performed takes a lot of time */
 int main()
 {
 	int c;
 	int state = IN;
 	int wl = 0; /* word length */
-	int histogram[MAX_WORD_LEN] = {0};
+	/* maximum occurrence of word, 10 is default
+	 * so that histogram is at least 10 characters high */
+	int max = 10;
+	int histogram[MAX_WORD_LEN] = {0}; /* initialise the array with 0 */
 
 	/* ToDo why doesn't ((c != EOF) || (c != '*')) work ??? */
 	for ( c = getchar(); c != EOF; c = getchar() ) {
@@ -29,7 +32,7 @@ int main()
 			/* if previous character was the end of a word */
 			if ( state == IN ) {
 				for (int i = 0; i < MAX_WORD_LEN; i++) {
-					if( wl == INDEX_WORD_LEN ) {
+					if( wl == (i + 1) ) {
 						++histogram[i];
 					}
 				}
@@ -47,13 +50,34 @@ int main()
 		}
 	}
 
+	/* find the maximum occurrences of a word, if it is bigger than 10 */
 	for (int i = 0; i < MAX_WORD_LEN; ++i) {
-		(void)printf("%2d:", INDEX_WORD_LEN);
-		for(int j = 0; j < histogram[i]; ++j) {
-			(void)putchar('#');
+		if (max < histogram[i]) {
+			max = histogram[i];
+		}
+	}
+
+	/* go through the top of the histogram to the bottom */
+	for (int i = max; i > 0; --i) {
+		for (int j = 0; j < MAX_WORD_LEN; ++j) {
+			/* if the occurrences are bigger or equal than
+			 * the occurrences for that line, print a '#' for that position */
+			if (histogram[j] >= i) {
+				(void)printf("%-3c", '#');
+			}
+			else {
+				(void)printf("%-3c", '·');
+			}
 		}
 		(void)putchar('\n');
 	}
 
+	/* print the word length numbers on the bottom of the histogram */
+	for (int j = 1; j <= MAX_WORD_LEN; ++j) {
+		/* each number is left-justified and has at minimum a width of 3 */
+		printf("%-3d", j);
+	}
+
 	return 0;
 }
+

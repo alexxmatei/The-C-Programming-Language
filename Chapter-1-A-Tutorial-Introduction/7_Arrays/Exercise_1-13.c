@@ -24,7 +24,7 @@ int main()
 	/* maximum occurrence of word, 10 is default
 	 * so that histogram is at least 10 characters high */
 	int max = MIN_HIST_LEN;
-	int histogram[MAX_WORD_LEN] = {0}; /* initialise the array with 0 */
+	int histogram[MAX_WORD_LEN] = { 0 }; /* initialise the array with 0 */
 
 	/* ToDo why doesn't ((c != EOF) || (c != '*')) work ??? */
 	for ( c = getchar(); c != EOF; c = getchar() ) {
@@ -32,8 +32,8 @@ int main()
 		if ( (c == ' ') || (c == '\t') || (c == '\n') ) {
 			/* if previous character was the end of a word */
 			if ( state == IN ) {
-				for (int i = 0; i < MAX_WORD_LEN; i++) {
-					if( wl == (i + 1) ) {
+				for ( int i = 0; i < MAX_WORD_LEN; i++ ) {
+					if ( wl == (i + 1) ) {
 						++histogram[i];
 					}
 				}
@@ -52,18 +52,18 @@ int main()
 	}
 
 	/* find the maximum occurrences of a word, if it is bigger than 10 */
-	for (int i = 0; i < MAX_WORD_LEN; ++i) {
-		if (max < histogram[i]) {
+	for ( int i = 0; i < MAX_WORD_LEN; ++i ) {
+		if ( max < histogram[i] ) {
 			max = histogram[i];
 		}
 	}
 
 	/* go through the top of the histogram to the bottom */
-	for (int i = max; i > 0; --i) {
-		for (int j = 0; j < MAX_WORD_LEN; ++j) {
+	for ( int i = max; i > 0; --i ) {
+		for ( int j = 0; j < MAX_WORD_LEN; ++j ) {
 			/* if the occurrences are bigger or equal than
 			 * the occurrences for that line, print a '#' for that position */
-			if (histogram[j] >= i) {
+			if ( histogram[j] >= i ) {
 				(void)printf("%-3c", '#');
 			}
 			else {
@@ -74,7 +74,7 @@ int main()
 	}
 
 	/* print the word length numbers on the bottom of the histogram */
-	for (int j = 1; j <= MAX_WORD_LEN; ++j) {
+	for ( int j = 1; j <= MAX_WORD_LEN; ++j ) {
 		/* each number is left-justified and has at minimum a width of 3 */
 		(void)printf("%-3d", j);
 	}

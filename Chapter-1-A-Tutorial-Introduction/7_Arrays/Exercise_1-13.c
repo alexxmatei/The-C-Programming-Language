@@ -10,6 +10,7 @@
 #define IN  1  /* inside a word */
 #define OUT 0  /* outside a word */
 #define MAX_WORD_LEN 20 /* maximum word length */
+#define MIN_HIST_LEN 10 /* minimum histogram length */
 
 /* prints a histogram of the lengths of words in input */
 /* ToDo Optimise code if a good solution is found;
@@ -22,7 +23,7 @@ int main()
 	int wl = 0; /* word length */
 	/* maximum occurrence of word, 10 is default
 	 * so that histogram is at least 10 characters high */
-	int max = 10;
+	int max = MIN_HIST_LEN;
 	int histogram[MAX_WORD_LEN] = {0}; /* initialise the array with 0 */
 
 	/* ToDo why doesn't ((c != EOF) || (c != '*')) work ??? */
@@ -75,7 +76,7 @@ int main()
 	/* print the word length numbers on the bottom of the histogram */
 	for (int j = 1; j <= MAX_WORD_LEN; ++j) {
 		/* each number is left-justified and has at minimum a width of 3 */
-		printf("%-3d", j);
+		(void)printf("%-3d", j);
 	}
 
 	return 0;

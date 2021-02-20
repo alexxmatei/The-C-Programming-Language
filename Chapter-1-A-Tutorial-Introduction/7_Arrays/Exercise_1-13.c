@@ -7,10 +7,11 @@
 
 #include <stdio.h>
 
-#define IN  1  /* inside a word */
-#define OUT 0  /* outside a word */
+#define IN  1 /* inside a word */
+#define OUT 0 /* outside a word */
 #define MAX_WORD_LEN 20 /* maximum word length */
 #define MIN_HIST_LEN 10 /* minimum histogram length */
+#define HIST_HEIGHT  20 /* height of the histogram */
 
 /* prints a histogram of the lengths of words in input */
 /* ToDo Optimise code if a good solution is found;
@@ -20,14 +21,17 @@
  * for example, if there is only 1 word, it will have the MAXHIST height
  * if there are 2 words, 1 of a fixed size, and another double that size
  * 1 will have MAXHIST height and 2 will have half that (rounded?) height */
+/* ToDo Add percentage range index to each row of the histogram
+ * Ex: 0 -  5% for the first
+ *     5 - 10% for the second, and so on*/
+/* ToDo Print the number of occurrences of the word length 
+ * given by an index under each respective index */
 int main()
 {
 	int c;
 	int state = IN;
 	int wl = 0; /* word length */
-	/* maximum occurrence of word, 10 is default
-	 * so that histogram is at least 10 characters high */
-	int max = MIN_HIST_LEN;
+	int max = 0; /* maximum occurrence of word */
 	int histogram[MAX_WORD_LEN] = { 0 }; /* initialise the array with 0 */
 	int biggerWords = 0; /* count the words larger than MAX_WORD_LEN */
 
@@ -56,7 +60,7 @@ int main()
 		}
 	}
 
-	/* find the maximum occurrences of a word, if it is bigger than 10 */
+	/* find the maximum occurrences of a word */
 	for ( int i = 0; i < MAX_WORD_LEN; ++i ) {
 		if ( max < histogram[i] ) {
 			max = histogram[i];
@@ -64,11 +68,9 @@ int main()
 	}
 
 	/* go through the top of the histogram to the bottom */
-	for ( int i = max; i > 0; --i ) {
+	for ( int i = HIST_HEIGHT; i > 0; --i ) {
 		for ( int j = 0; j < MAX_WORD_LEN; ++j ) {
-			/* if the occurrences are bigger or equal than
-			 * the occurrences for that line, print a '#' for that position */
-			if ( histogram[j] >= i ) {
+			if ( (histogram[j] * HIST_HEIGHT / max) >= i ) {
 				(void)printf("%-3c", '#');
 			}
 			else {

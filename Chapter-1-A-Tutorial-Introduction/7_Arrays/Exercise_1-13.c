@@ -70,7 +70,13 @@ int main()
 	/* go through the top of the histogram to the bottom */
 	for ( int i = HIST_HEIGHT; i > 0; --i ) {
 		for ( int j = 0; j < MAX_WORD_LEN; ++j ) {
-			if ( (histogram[j] * HIST_HEIGHT / max) >= i ) {
+			/* the percentage of occurrences stored at the current index
+			 * relative to the maximum number of occurrences */
+			float prcOfMax = (float)histogram[j] / (float)max;
+			/* scale the percentage (rounded down)
+			 * based on the height of the histogram */
+			int scaledPrc = (int)(prcOfMax * (float)HIST_HEIGHT);
+			if (scaledPrc >= i) {
 				(void)printf("%-3c", '#');
 			}
 			else {

@@ -11,6 +11,7 @@
 #define OUT 0 /* outside a word */
 #define MAX_WORD_LEN 20 /* maximum word length */
 #define MIN_HIST_LEN 10 /* minimum histogram length */
+/* ToDo Why does it bug out for high values? Example: 100. */
 #define HIST_HEIGHT  20 /* height of the histogram */
 
 /* prints a histogram of the lengths of words in input */
@@ -25,7 +26,10 @@
  * Ex: 0 -  5% for the first
  *     5 - 10% for the second, and so on*/
 /* ToDo Print the number of occurrences of the word length 
- * given by an index under each respective index */
+ * given by an index under each respective index
+ * If this is done the spacing between histogram columns will have to adapt
+ * to respect the width of the occurrences value for each index */
+/* ToDo Also print a table with occurrences */
 int main()
 {
 	int c;
@@ -67,8 +71,16 @@ int main()
 		}
 	}
 
+	int prc[HIST_HEIGHT] = { 0 };
 	/* go through the top of the histogram to the bottom */
 	for ( int i = HIST_HEIGHT; i > 0; --i ) {
+		prc[i - 1] = (int)((float)i/HIST_HEIGHT*100);
+		if (prc[i - 1] == 100) {
+			(void)printf("%12d%%: ", prc[i - 1]);
+		}
+		else {
+			(void)printf("%3d%% - %5.2f%%: ", prc[i], (int)((float)(i+1)/HIST_HEIGHT*100)-0.01 );
+		}
 		for ( int j = 0; j < MAX_WORD_LEN; ++j ) {
 			/* the percentage of occurrences stored at the current index
 			 * relative to the maximum number of occurrences */
@@ -86,7 +98,14 @@ int main()
 		(void)putchar('\n');
 	}
 
-	/* print the word length numbers on the bottom of the histogram */
+	#define PERCENTAGE_TEXT_WIDTH 15
+	/* print spaces equal to the width of the percentage row
+	 * this is so that the indexes are printed at the correct positions */
+	for (int i = 0; i < PERCENTAGE_TEXT_WIDTH; ++i) {
+		(void)putchar(' ');
+	}
+
+	/* print the indexes on the bottom of the histogram */
 	for ( int j = 1; j <= MAX_WORD_LEN; ++j ) {
 		/* each number is left-justified and has at minimum a width of 3 */
 		(void)printf("%-3d", j);
@@ -100,4 +119,3 @@ int main()
 
 	return 0;
 }
-

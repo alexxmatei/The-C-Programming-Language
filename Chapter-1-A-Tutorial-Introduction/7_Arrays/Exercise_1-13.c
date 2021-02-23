@@ -79,7 +79,7 @@ int main()
 			(void)printf("%12d%%: ", prc[i - 1]);
 		}
 		else {
-			(void)printf("%3d%% - %5.2f%%: ", prc[i], (int)((float)(i+1)/HIST_HEIGHT*100)-0.01 );
+			(void)printf("%3d%% - %5.2f%%: ", prc[i - 1], prc[i] - 0.01 );
 		}
 		for ( int j = 0; j < MAX_WORD_LEN; ++j ) {
 			/* the percentage of occurrences stored at the current index

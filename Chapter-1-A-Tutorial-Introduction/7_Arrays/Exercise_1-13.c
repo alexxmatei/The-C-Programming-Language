@@ -13,6 +13,8 @@
 #define MIN_HIST_LEN 10 /* minimum histogram length */
 /* ToDo Why does it bug out for high values? Example: 100. */
 #define HIST_HEIGHT  20 /* height of the histogram */
+#define DECIMAL_PRECISION 2
+#define DCML (1 / pow(10, DECIMAL_PRECISION))
 
 /* prints a histogram of the lengths of words in input */
 /* ToDo Optimise code if a good solution is found;
@@ -76,10 +78,10 @@ int main()
 	for ( int i = HIST_HEIGHT; i > 0; --i ) {
 		prc[i - 1] = (int)((float)i/HIST_HEIGHT*100);
 		if (prc[i - 1] == 100) {
-			(void)printf("%12d%%: ", prc[i - 1]);
+			(void)printf("%*d%%: ", 10 + DECIMAL_PRECISION, prc[i - 1]);
 		}
 		else {
-			(void)printf("%3d%% - %5.2f%%: ", prc[i - 1], prc[i] - 0.01 );
+			(void)printf("%3d%% - %*.*f%%: ", prc[i - 1], 3 + DECIMAL_PRECISION, DECIMAL_PRECISION, prc[i] - DCML );
 		}
 		for ( int j = 0; j < MAX_WORD_LEN; ++j ) {
 			/* the percentage of occurrences stored at the current index
@@ -98,7 +100,7 @@ int main()
 		(void)putchar('\n');
 	}
 
-	#define PERCENTAGE_TEXT_WIDTH 15
+	#define PERCENTAGE_TEXT_WIDTH 13 + DECIMAL_PRECISION
 	/* print spaces equal to the width of the percentage row
 	 * this is so that the indexes are printed at the correct positions */
 	for (int i = 0; i < PERCENTAGE_TEXT_WIDTH; ++i) {

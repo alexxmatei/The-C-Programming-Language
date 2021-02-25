@@ -32,6 +32,8 @@
  * If this is done the spacing between histogram columns will have to adapt
  * to respect the width of the occurrences value for each index */
 /* ToDo Also print a table with occurrences */
+/* ToDo Switch between table format or number under each index depending
+ * on word width */
 int main()
 {
 	int c;
@@ -100,7 +102,7 @@ int main()
 		(void)putchar('\n');
 	}
 
-	#define PERCENTAGE_TEXT_WIDTH 13 + DECIMAL_PRECISION
+	#define PERCENTAGE_TEXT_WIDTH (13 + DECIMAL_PRECISION)
 	/* print spaces equal to the width of the percentage row
 	 * this is so that the indexes are printed at the correct positions */
 	for (int i = 0; i < PERCENTAGE_TEXT_WIDTH; ++i) {

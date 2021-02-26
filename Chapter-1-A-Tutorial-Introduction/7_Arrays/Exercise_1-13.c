@@ -6,6 +6,7 @@
  */
 
 #include <stdio.h>
+#include <math.h>
 
 #define IN  1 /* inside a word */
 #define OUT 0 /* outside a word */
@@ -14,7 +15,8 @@
 /* ToDo Why does it bug out for high values? Example: 100. */
 #define HIST_HEIGHT  20 /* height of the histogram */
 #define DECIMAL_PRECISION 2
-#define DCML (1 / pow(10, DECIMAL_PRECISION))
+#define MIN_DECIMAL_VAL (1 / pow(10, DECIMAL_PRECISION)) /* get minimum decimal value based on precision */
+#define MAX_PERCENTAGE 100
 
 /* prints a histogram of the lengths of words in input */
 /* ToDo Optimise code if a good solution is found;
@@ -78,12 +80,15 @@ int main()
 	int prc[HIST_HEIGHT] = { 0 };
 	/* go through the top of the histogram to the bottom */
 	for ( int i = HIST_HEIGHT; i > 0; --i ) {
-		prc[i - 1] = (int)((float)i/HIST_HEIGHT*100);
-		if (prc[i - 1] == 100) {
-			(void)printf("%*d%%: ", 10 + DECIMAL_PRECISION, prc[i - 1]);
+		prc[i - 1] = (int)((float)i/HIST_HEIGHT*MAX_PERCENTAGE);
+		if (prc[i - 1] != MAX_PERCENTAGE) {
+			#define PRINTF_LEN 10 /* the length of the string before the 2nd percentage number */
+			#define PRINTF_NR_WIDTH 3 /* default width of percentage number */
+			#define PRINTF_2ND_NR_WIDTH (PRINTF_NR_WIDTH + DECIMAL_PRECISION)
+			(void)printf("%*d%% - %*.*f%%: ", prc[i - 1], PRINTF_NR_WIDTH, PRINTF_2ND_NR_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
 		}
 		else {
-			(void)printf("%3d%% - %*.*f%%: ", prc[i - 1], 3 + DECIMAL_PRECISION, DECIMAL_PRECISION, prc[i] - DCML );
+			(void)printf("%*d%%: ", PRINTF_LEN + DECIMAL_PRECISION, prc[i - 1]);
 		}
 		for ( int j = 0; j < MAX_WORD_LEN; ++j ) {
 			/* the percentage of occurrences stored at the current index
@@ -102,7 +107,7 @@ int main()
 		(void)putchar('\n');
 	}
 
-	#define PERCENTAGE_TEXT_WIDTH (13 + DECIMAL_PRECISION)
+	#define PERCENTAGE_TEXT_WIDTH (PRINTF_LEN + PRINTF_NR_WIDTH + DECIMAL_PRECISION)
 	/* print spaces equal to the width of the percentage row
 	 * this is so that the indexes are printed at the correct positions */
 	for (int i = 0; i < PERCENTAGE_TEXT_WIDTH; ++i) {

@@ -85,7 +85,7 @@ int main()
 			#define PRINTF_LEN 10 /* the length of the string before the 2nd percentage number */
 			#define PRINTF_NR_WIDTH 3 /* default width of percentage number */
 			#define PRINTF_2ND_NR_WIDTH (PRINTF_NR_WIDTH + DECIMAL_PRECISION)
-			(void)printf("%*d%% - %*.*f%%: ", prc[i - 1], PRINTF_NR_WIDTH, PRINTF_2ND_NR_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
+			(void)printf("%*d%% - %*.*f%%: ", PRINTF_NR_WIDTH, prc[i - 1], PRINTF_2ND_NR_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
 		}
 		else {
 			(void)printf("%*d%%: ", PRINTF_LEN + DECIMAL_PRECISION, prc[i - 1]);

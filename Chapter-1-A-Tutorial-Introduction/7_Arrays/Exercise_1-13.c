@@ -80,7 +80,7 @@ int main()
 	int prc[HIST_HEIGHT] = { 0 };
 	/* go through the top of the histogram to the bottom */
 	for ( int i = HIST_HEIGHT; i > 0; --i ) {
-		prc[i - 1] = (int)((float)i/HIST_HEIGHT*MAX_PERCENTAGE);
+		prc[i - 1] = (int)( (float)i / HIST_HEIGHT * MAX_PERCENTAGE );
 		if (prc[i - 1] != MAX_PERCENTAGE) {
 			#define PRINTF_LEN 10 /* the length of the string before the 2nd percentage number */
 			#define PRINTF_NR_WIDTH 3 /* default width of percentage number */

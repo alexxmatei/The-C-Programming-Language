@@ -51,11 +51,12 @@ int main()
 		if ( (c == ' ') || (c == '\t') || (c == '\n') ) {
 			/* if previous character was the end of a word */
 			if ( state == IN ) {
-					if ( wl <= MAX_WORD_LEN ) {
-						++histogram[wl - 1];
-					} else {
-						++biggerWords;
-					}
+				if ( wl <= MAX_WORD_LEN ) {
+					++histogram[wl - 1];
+				}
+				else {
+					++biggerWords;
+				}
 			}
 			state = OUT;
 		}
@@ -80,8 +81,8 @@ int main()
 	int prc[HIST_HEIGHT] = { 0 };
 	/* go through the top of the histogram to the bottom */
 	for ( int i = HIST_HEIGHT; i > 0; --i ) {
-		prc[i - 1] = (int)( (float)i / HIST_HEIGHT * MAX_PERCENTAGE );
-		if (prc[i - 1] != MAX_PERCENTAGE) {
+		prc[i - 1] = (int)((float)i / HIST_HEIGHT * MAX_PERCENTAGE);
+		if ( prc[i - 1] != MAX_PERCENTAGE ) {
 			#define PRINTF_LEN 10 /* the length of the string before the 2nd percentage number */
 			#define PRINTF_NR_WIDTH 3 /* default width of percentage number */
 			#define PRINTF_2ND_NR_WIDTH (PRINTF_NR_WIDTH + DECIMAL_PRECISION)
@@ -97,7 +98,7 @@ int main()
 			/* scale the percentage (rounded down)
 			 * based on the height of the histogram */
 			int scaledPrc = (int)(prcOfMax * (float)HIST_HEIGHT);
-			if (scaledPrc >= i) {
+			if ( scaledPrc >= i ) {
 				(void)printf("%-3c", '#');
 			}
 			else {
@@ -110,14 +111,14 @@ int main()
 	#define PERCENTAGE_TEXT_WIDTH (PRINTF_LEN + PRINTF_NR_WIDTH + DECIMAL_PRECISION)
 	/* print spaces equal to the width of the percentage row
 	 * this is so that the indexes are printed at the correct positions */
-	for (int i = 0; i < PERCENTAGE_TEXT_WIDTH; ++i) {
+	for ( int i = 0; i < PERCENTAGE_TEXT_WIDTH; ++i ) {
 		(void)putchar(' ');
 	}
 
 	/* print the indexes on the bottom of the histogram */
-	for ( int j = 1; j <= MAX_WORD_LEN; ++j ) {
+	for ( int i = 1; i <= MAX_WORD_LEN; ++i ) {
 		/* each number is left-justified and has at minimum a width of 3 */
-		(void)printf("%-3d", j);
+		(void)printf("%-3d", i);
 	}
 
 	if ( biggerWords > 0 ) {

@@ -17,6 +17,8 @@
 #define DECIMAL_PRECISION 2
 #define MIN_DECIMAL_VAL (1 / pow(10, DECIMAL_PRECISION)) /* get minimum decimal value based on precision */
 #define MAX_PERCENTAGE 100
+#define NR_OCCURRENCES_INDEX_WIDTH 2
+#define MAX_OCCURRENCES_INDEX_NR pow(10, NR_OCCURRENCES_INDEX_WIDTH)
 
 /* prints a histogram of the lengths of words in input */
 /* ToDo Optimise code if a good solution is found;
@@ -119,6 +121,22 @@ int main()
 	for ( int i = 1; i <= MAX_WORD_LEN; ++i ) {
 		/* each number is left-justified and has at minimum a width of 3 */
 		(void)printf("%-3d", i);
+	}
+
+	if ( max < MAX_OCCURRENCES_INDEX_NR ) {
+		(void)putchar('\n');
+
+		/* print spaces equal to the width of the percentage row
+		 * this is so that the indexes are printed at the correct positions */
+		for ( int i = 0; i < PERCENTAGE_TEXT_WIDTH; ++i ) {
+			(void)putchar(' ');
+		}
+
+		/* print the indexes on the bottom of the histogram */
+		for ( int i = 0; i < MAX_WORD_LEN; ++i ) {
+			/* each number is left-justified and has at minimum a width of 3 */
+			(void)printf("%-3d", histogram[i]);
+		}
 	}
 
 	if ( biggerWords > 0 ) {

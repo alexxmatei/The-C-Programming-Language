@@ -17,8 +17,9 @@
 #define DECIMAL_PRECISION 2
 #define MIN_DECIMAL_VAL (1 / pow(10, DECIMAL_PRECISION)) /* get minimum decimal value based on precision */
 #define MAX_PERCENTAGE 100
-#define NR_OCCURRENCES_INDEX_WIDTH 2
+#define NR_OCCURRENCES_INDEX_WIDTH 2 /* maximum nr. width to be displayed under histogram drawing letter count index */
 #define MAX_OCCURRENCES_INDEX_NR pow(10, NR_OCCURRENCES_INDEX_WIDTH)
+#define S10_C 10 /* signed value constant */
 
 /* prints a histogram of the lengths of words in input */
 /* ToDo Optimise code if a good solution is found;
@@ -125,7 +126,6 @@ int main()
 
 	if ( max < MAX_OCCURRENCES_INDEX_NR ) {
 		(void)putchar('\n');
-
 		/* print spaces equal to the width of the percentage row
 		 * this is so that the indexes are printed at the correct positions */
 		for ( int i = 0; i < PERCENTAGE_TEXT_WIDTH; ++i ) {
@@ -137,10 +137,24 @@ int main()
 			/* each number is left-justified and has at minimum a width of 3 */
 			(void)printf("%-3d", histogram[i]);
 		}
+		(void)putchar('\n');
+	}
+	else {
+		int lenWidth = 0;
+		int maxWidth = MAX_WORD_LEN;
+		(void)printf("\n\nNumber of occurrences:\n");
+
+		while ( maxWidth != 0 ) {
+			maxWidth /= S10_C;
+			++ lenWidth;
+		}
+
+		for ( int i = 0; i < MAX_WORD_LEN; ++i ) {
+			(void)printf("%*d: %d\n", lenWidth, i + 1, histogram[i]);
+		}
 	}
 
 	if ( biggerWords > 0 ) {
-		(void)putchar('\n');
 		(void)putchar('\n');
 		(void)printf("Words larger than %d letters: %d", MAX_WORD_LEN, biggerWords);
 	}

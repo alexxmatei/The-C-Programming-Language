@@ -112,6 +112,27 @@ int main()
 	}
 
 	#define PERCENTAGE_TEXT_WIDTH (PRINTF_LEN + PRINTF_NR_WIDTH + DECIMAL_PRECISION)
+	for ( int i = 0; i < PERCENTAGE_TEXT_WIDTH; ++i ) {
+		(void)putchar(' ');
+	}
+
+	for ( int j = 0; j < MAX_WORD_LEN; ++j ) {
+		/* the percentage of occurrences stored at the current index
+		 * relative to the maximum number of occurrences */
+		float prcOfMax = (float)histogram[j] / (float)max;
+		/* scale the percentage (rounded down)
+		 * based on the height of the histogram */
+		float scaledPrc = (prcOfMax * (float)HIST_HEIGHT);
+		if ( scaledPrc > 0.0f ) {
+			(void)printf("%-3c", '#');
+		}
+		else {
+			(void)printf("%-3c", '·');
+		}
+	}
+
+	(void)putchar('\n');
+
 	/* print spaces equal to the width of the percentage row
 	 * this is so that the indexes are printed at the correct positions */
 	for ( int i = 0; i < PERCENTAGE_TEXT_WIDTH; ++i ) {

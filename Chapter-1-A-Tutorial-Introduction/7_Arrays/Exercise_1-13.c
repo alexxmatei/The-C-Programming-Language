@@ -112,9 +112,7 @@ int main()
 	}
 
 	#define PERCENTAGE_TEXT_WIDTH (PRINTF_LEN + PRINTF_NR_WIDTH + DECIMAL_PRECISION)
-	for ( int i = 0; i < PERCENTAGE_TEXT_WIDTH; ++i ) {
-		(void)putchar(' ');
-	}
+	(void)printf("%*.*f%% - %*.*f%%: ", PRINTF_NR_WIDTH, DECIMAL_PRECISION, MIN_DECIMAL_VAL, PRINTF_2ND_NR_WIDTH, DECIMAL_PRECISION, prc[0] - MIN_DECIMAL_VAL);
 
 	for ( int j = 0; j < MAX_WORD_LEN; ++j ) {
 		/* the percentage of occurrences stored at the current index

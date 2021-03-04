@@ -86,13 +86,15 @@ int main()
 	for ( int i = HIST_HEIGHT; i > 0; --i ) {
 		prc[i - 1] = (int)((float)i / HIST_HEIGHT * MAX_PERCENTAGE);
 		if ( prc[i - 1] != MAX_PERCENTAGE ) {
-			#define PRINTF_LEN 10 /* the length of the string before the 2nd percentage number */
-			#define PRINTF_NR_WIDTH 3 /* default width of percentage number */
-			#define PRINTF_2ND_NR_WIDTH (PRINTF_NR_WIDTH + DECIMAL_PRECISION)
+#define PRINTF_NR_WIDTH (DECIMAL_PRECISION + 2) /* the decimal precision plus the preceding "0." */
+#define CHARS_BETWEEN_NR1_NR2 4 /* the number of characters between the 2 variables in the printf format string */
+#define PRINTF_2ND_NR_WIDTH (DECIMAL_PRECISION + 3) /* the decimal precision plus the preceding "\d\d." */
+#define CHARS_AFTER_NR2 3 /* "%:" and an extra space before the first symbol */
+#define PRINTF_LEN PRINTF_NR_WIDTH + CHARS_BETWEEN_NR1_NR2 + PRINTF_2ND_NR_WIDTH + CHARS_AFTER_NR2 /* the length of the string before the 2nd percentage number */
 			(void)printf("%*d%% - %*.*f%%: ", PRINTF_NR_WIDTH, prc[i - 1], PRINTF_2ND_NR_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
 		}
 		else {
-			(void)printf("%*d%%: ", PRINTF_LEN + DECIMAL_PRECISION, prc[i - 1]);
+			(void)printf("%*d%%: ", PRINTF_LEN - CHARS_AFTER_NR2, prc[i - 1]);
 		}
 		for ( int j = 0; j < MAX_WORD_LEN; ++j ) {
 			/* the percentage of occurrences stored at the current index
@@ -110,8 +112,7 @@ int main()
 		}
 		(void)putchar('\n');
 	}
-
-	#define PERCENTAGE_TEXT_WIDTH (PRINTF_LEN + PRINTF_NR_WIDTH + DECIMAL_PRECISION)
+	
 	(void)printf("%*.*f%% - %*.*f%%: ", PRINTF_NR_WIDTH, DECIMAL_PRECISION, MIN_DECIMAL_VAL, PRINTF_2ND_NR_WIDTH, DECIMAL_PRECISION, prc[0] - MIN_DECIMAL_VAL);
 
 	for ( int j = 0; j < MAX_WORD_LEN; ++j ) {
@@ -133,7 +134,7 @@ int main()
 
 	/* print spaces equal to the width of the percentage row
 	 * this is so that the indexes are printed at the correct positions */
-	for ( int i = 0; i < PERCENTAGE_TEXT_WIDTH; ++i ) {
+	for ( int i = 0; i < PRINTF_LEN; ++i ) {
 		(void)putchar(' ');
 	}
 
@@ -147,7 +148,7 @@ int main()
 		(void)putchar('\n');
 		/* print spaces equal to the width of the percentage row
 		 * this is so that the indexes are printed at the correct positions */
-		for ( int i = 0; i < PERCENTAGE_TEXT_WIDTH; ++i ) {
+		for ( int i = 0; i < PRINTF_LEN; ++i ) {
 			(void)putchar(' ');
 		}
 

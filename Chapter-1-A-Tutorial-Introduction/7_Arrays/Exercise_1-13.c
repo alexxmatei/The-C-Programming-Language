@@ -21,6 +21,13 @@
 #define MAX_OCCURRENCES_INDEX_NR pow(10, NR_OCCURRENCES_INDEX_WIDTH)
 #define S10_C 10 /* signed value constant */
 
+/* printf format defines */
+#define PRINTF_NR_WIDTH (DECIMAL_PRECISION + 2) /* the decimal precision plus the preceding "0." */
+#define CHARS_BETWEEN_NR1_NR2 4 /* the number of characters between the 2 variables in the printf format string */
+#define PRINTF_2ND_NR_WIDTH (DECIMAL_PRECISION + 3) /* the decimal precision plus the preceding "\d\d." */
+#define CHARS_AFTER_NR2 3 /* "%:" and an extra space before the first symbol */
+#define PRINTF_LEN PRINTF_NR_WIDTH + CHARS_BETWEEN_NR1_NR2 + PRINTF_2ND_NR_WIDTH + CHARS_AFTER_NR2 /* the length of the string before the 2nd percentage number */
+
 /* prints a histogram of the lengths of words in input */
 /* ToDo Optimise code if a good solution is found;
  * having to re-iterate through the whole array
@@ -85,31 +92,29 @@ int main()
 	/* go through the top of the histogram to the bottom */
 	for ( int i = HIST_HEIGHT; i > 0; --i ) {
 		prc[i - 1] = (int)((float)i / HIST_HEIGHT * MAX_PERCENTAGE);
-		if ( prc[i - 1] != MAX_PERCENTAGE ) {
-#define PRINTF_NR_WIDTH (DECIMAL_PRECISION + 2) /* the decimal precision plus the preceding "0." */
-#define CHARS_BETWEEN_NR1_NR2 4 /* the number of characters between the 2 variables in the printf format string */
-#define PRINTF_2ND_NR_WIDTH (DECIMAL_PRECISION + 3) /* the decimal precision plus the preceding "\d\d." */
-#define CHARS_AFTER_NR2 3 /* "%:" and an extra space before the first symbol */
-#define PRINTF_LEN PRINTF_NR_WIDTH + CHARS_BETWEEN_NR1_NR2 + PRINTF_2ND_NR_WIDTH + CHARS_AFTER_NR2 /* the length of the string before the 2nd percentage number */
-			(void)printf("%*d%% - %*.*f%%: ", PRINTF_NR_WIDTH, prc[i - 1], PRINTF_2ND_NR_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
-		}
-		else {
-			(void)printf("%*d%%: ", PRINTF_LEN - CHARS_AFTER_NR2, prc[i - 1]);
-		}
-		for ( int j = 0; j < MAX_WORD_LEN; ++j ) {
-			/* the percentage of occurrences stored at the current index
-			 * relative to the maximum number of occurrences */
-			float prcOfMax = (float)histogram[j] / (float)max;
-			/* scale the percentage (rounded down)
-			 * based on the height of the histogram */
-			int scaledPrc = (int)(prcOfMax * (float)HIST_HEIGHT);
-			if ( scaledPrc >= i ) {
-				(void)printf("%-3c", '#');
+		if ( i != HIST_HEIGHT ) { /* skip the first and highest value, because we add an extra row at the end */
+			if (prc[i] == MAX_PERCENTAGE) {
+				(void)printf("%*d%% - %*d%%: ", PRINTF_NR_WIDTH, prc[i - 1], PRINTF_2ND_NR_WIDTH, prc[i]);
 			}
 			else {
-				(void)printf("%-3c", '·');
+				(void)printf("%*d%% - %*.*f%%: ", PRINTF_NR_WIDTH, prc[i - 1], PRINTF_2ND_NR_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
+			}
+			for ( int j = 0; j < MAX_WORD_LEN; ++j ) {
+				/* the percentage of occurrences stored at the current index
+				 * relative to the maximum number of occurrences */
+				float prcOfMax = (float)histogram[j] / (float)max;
+				/* scale the percentage (rounded down)
+				 * based on the height of the histogram */
+				int scaledPrc = (int)(prcOfMax * (float)HIST_HEIGHT);
+				if ( scaledPrc >= i ) {
+					(void)printf("%-3c", '#');
+				}
+				else {
+					(void)printf("%-3c", '·');
+				}
 			}
 		}
+
 		(void)putchar('\n');
 	}
 	

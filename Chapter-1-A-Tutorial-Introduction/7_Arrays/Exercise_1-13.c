@@ -22,7 +22,7 @@
 #define S10_C 10 /* signed value constant */
 
 /* printf format defines */
-#define PRINTF_NR_WIDTH (DECIMAL_PRECISION + 2) /* the decimal precision plus the preceding "0." */
+#define PRINTF_NR_WIDTH (DECIMAL_PRECISION + 3) /* the decimal precision plus the preceding "0." */
 #define CHARS_BETWEEN_NR1_NR2 4 /* the number of characters between the 2 variables in the printf format string */
 #define PRINTF_2ND_NR_WIDTH (DECIMAL_PRECISION + 3) /* the decimal precision plus the preceding "\d\d." */
 #define CHARS_AFTER_NR2 3 /* "%:" and an extra space before the first symbol */
@@ -94,10 +94,10 @@ int main()
 		prc[i - 1] = (int)((float)i / HIST_HEIGHT * MAX_PERCENTAGE);
 		if ( i != HIST_HEIGHT ) { /* skip the first and highest value, because we add an extra row at the end */
 			if (prc[i] == MAX_PERCENTAGE) {
-				(void)printf("%*d%% - %*d%%: ", PRINTF_NR_WIDTH, prc[i - 1], PRINTF_2ND_NR_WIDTH, prc[i]);
+				(void)printf("%*.*f%% - %*d%%: ", PRINTF_NR_WIDTH, DECIMAL_PRECISION, (float)prc[i - 1], PRINTF_2ND_NR_WIDTH, prc[i]);
 			}
 			else {
-				(void)printf("%*d%% - %*.*f%%: ", PRINTF_NR_WIDTH, prc[i - 1], PRINTF_2ND_NR_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
+				(void)printf("%*.*f%% - %*.*f%%: ", PRINTF_NR_WIDTH, DECIMAL_PRECISION, (float)prc[i - 1], PRINTF_2ND_NR_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
 			}
 			for ( int j = 0; j < MAX_WORD_LEN; ++j ) {
 				/* the percentage of occurrences stored at the current index

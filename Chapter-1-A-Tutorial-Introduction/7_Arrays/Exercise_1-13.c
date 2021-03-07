@@ -29,23 +29,8 @@
 #define PRINTF_LEN PRINTF_NR_WIDTH + CHARS_BETWEEN_NR1_NR2 + PRINTF_2ND_NR_WIDTH + CHARS_AFTER_NR2 /* the length of the string before the 2nd percentage number */
 
 /* prints a histogram of the lengths of words in input */
-/* ToDo Optimise code if a good solution is found;
- * having to re-iterate through the whole array
- * every time an action is performed takes a lot of time */
-/* ToDo make histogram relative (MAXHIST = 15) book example
- * for example, if there is only 1 word, it will have the MAXHIST height
- * if there are 2 words, 1 of a fixed size, and another double that size
- * 1 will have MAXHIST height and 2 will have half that (rounded?) height */
-/* ToDo Add percentage range index to each row of the histogram
- * Ex: 0 -  5% for the first
- *     5 - 10% for the second, and so on*/
-/* ToDo Print the number of occurrences of the word length 
- * given by an index under each respective index
- * If this is done the spacing between histogram columns will have to adapt
- * to respect the width of the occurrences value for each index */
-/* ToDo Also print a table with occurrences */
-/* ToDo Switch between table format or number under each index depending
- * on word width */
+/* ToDo Clean up program, add functions, use variables instead of macros, document code */
+
 int main()
 {
 	int c;

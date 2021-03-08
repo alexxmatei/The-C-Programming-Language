@@ -75,23 +75,34 @@ int main()
 
 	int prc[HIST_HEIGHT] = { 0 };
 	/* go through the top of the histogram to the bottom */
-	for ( int i = HIST_HEIGHT; i > 0; --i ) {
-		prc[i - 1] = (int)((float)i / HIST_HEIGHT * MAX_PERCENTAGE);
+	for ( int i = HIST_HEIGHT; i >= 0; --i ) {
+		if (i != 0) {
+			prc[i - 1] = (int)((float)i / HIST_HEIGHT * MAX_PERCENTAGE);
+		}
 		if ( i != HIST_HEIGHT ) { /* skip the first and highest value, because we add an extra row at the end */
+			/* if this is the first row */
 			if (prc[i] == MAX_PERCENTAGE) {
 				(void)printf("%*.*f%% - %*d%%: ", PRINTF_NR_WIDTH, DECIMAL_PRECISION, (float)prc[i - 1], PRINTF_2ND_NR_WIDTH, prc[i]);
+			}
+			/* else if this is the last row */
+			else if ( i == 0 ) {
+				(void)printf("%*.*f%% - %*.*f%%: ", PRINTF_NR_WIDTH, DECIMAL_PRECISION, MIN_DECIMAL_VAL, PRINTF_2ND_NR_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
 			}
 			else {
 				(void)printf("%*.*f%% - %*.*f%%: ", PRINTF_NR_WIDTH, DECIMAL_PRECISION, (float)prc[i - 1], PRINTF_2ND_NR_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
 			}
 			for ( int j = 0; j < MAX_WORD_LEN; ++j ) {
+				float ref = (float)i; /* reference */
+				if ( i == 0 ) {
+					ref = (float)MIN_DECIMAL_VAL;
+				}
 				/* the percentage of occurrences stored at the current index
 				 * relative to the maximum number of occurrences */
 				float prcOfMax = (float)histogram[j] / (float)max;
 				/* scale the percentage (rounded down)
 				 * based on the height of the histogram */
-				int scaledPrc = (int)(prcOfMax * (float)HIST_HEIGHT);
-				if ( scaledPrc >= i ) {
+				float scaledPrc = (prcOfMax * (float)HIST_HEIGHT);
+				if ( scaledPrc >= ref ) {
 					(void)printf("%-3c", '#');
 				}
 				else {
@@ -99,28 +110,9 @@ int main()
 				}
 			}
 		}
-
 		(void)putchar('\n');
 	}
-	
-	(void)printf("%*.*f%% - %*.*f%%: ", PRINTF_NR_WIDTH, DECIMAL_PRECISION, MIN_DECIMAL_VAL, PRINTF_2ND_NR_WIDTH, DECIMAL_PRECISION, prc[0] - MIN_DECIMAL_VAL);
 
-	for ( int j = 0; j < MAX_WORD_LEN; ++j ) {
-		/* the percentage of occurrences stored at the current index
-		 * relative to the maximum number of occurrences */
-		float prcOfMax = (float)histogram[j] / (float)max;
-		/* scale the percentage (rounded down)
-		 * based on the height of the histogram */
-		float scaledPrc = (prcOfMax * (float)HIST_HEIGHT);
-		if ( scaledPrc > 0.0f ) {
-			(void)printf("%-3c", '#');
-		}
-		else {
-			(void)printf("%-3c", '·');
-		}
-	}
-
-	(void)putchar('\n');
 
 	/* print spaces equal to the width of the percentage row
 	 * this is so that the indexes are printed at the correct positions */

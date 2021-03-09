@@ -16,15 +16,16 @@
 #define HIST_HEIGHT  20 /* height of the histogram */
 #define DECIMAL_PRECISION 2
 #define MIN_DECIMAL_VAL (1 / pow(10, DECIMAL_PRECISION)) /* get minimum decimal value based on precision */
+#define MAX_NR_WIDTH 3
 #define MAX_PERCENTAGE 100
 #define NR_OCCURRENCES_INDEX_WIDTH 2 /* maximum nr. width to be displayed under histogram drawing letter count index */
 #define MAX_OCCURRENCES_INDEX_NR pow(10, NR_OCCURRENCES_INDEX_WIDTH)
 #define S10_C 10 /* signed value constant */
 
 /* printf format defines */
-#define PRINTF_NR_WIDTH (DECIMAL_PRECISION + 3) /* the decimal precision plus the preceding "0." */
+#define PRINTF_NR_WIDTH (DECIMAL_PRECISION + MAX_NR_WIDTH + 1) /* the number plus the '.' */
 #define CHARS_BETWEEN_NR1_NR2 4 /* the number of characters between the 2 variables in the printf format string */
-#define PRINTF_2ND_NR_WIDTH (DECIMAL_PRECISION + 3) /* the decimal precision plus the preceding "\d\d." */
+#define PRINTF_2ND_NR_WIDTH (DECIMAL_PRECISION + MAX_NR_WIDTH + 1) /* the number plus the '.' */
 #define CHARS_AFTER_NR2 3 /* "%:" and an extra space before the first symbol */
 #define PRINTF_LEN PRINTF_NR_WIDTH + CHARS_BETWEEN_NR1_NR2 + PRINTF_2ND_NR_WIDTH + CHARS_AFTER_NR2 /* the length of the string before the 2nd percentage number */
 
@@ -82,7 +83,7 @@ int main()
 		if ( i != HIST_HEIGHT ) { /* skip the first and highest value, because we add an extra row at the end */
 			/* if this is the first row */
 			if (prc[i] == MAX_PERCENTAGE) {
-				(void)printf("%*.*f%% - %*d%%: ", PRINTF_NR_WIDTH, DECIMAL_PRECISION, (float)prc[i - 1], PRINTF_2ND_NR_WIDTH, prc[i]);
+				(void)printf("%*.*f%% - %*.*f%%: ", PRINTF_NR_WIDTH, DECIMAL_PRECISION, (float)prc[i - 1], PRINTF_2ND_NR_WIDTH, DECIMAL_PRECISION, (float)prc[i]);
 			}
 			/* else if this is the last row */
 			else if ( i == 0 ) {

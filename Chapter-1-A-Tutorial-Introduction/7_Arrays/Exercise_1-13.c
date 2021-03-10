@@ -10,24 +10,23 @@
 
 #define IN  1 /* inside a word */
 #define OUT 0 /* outside a word */
-#define MAX_WORD_LEN 20 /* maximum word length */
-#define MIN_HIST_LEN 10 /* minimum histogram length */
+#define MAX_WORD_LEN 20 /* maximum word length tracked by the histogram */
 /* ToDo Why does it bug out for high values? Example: 100. */
 #define HIST_HEIGHT  20 /* height of the histogram */
-#define DECIMAL_PRECISION 2
+#define DECIMAL_PRECISION 2 /* the number of decimals used for the percentages */
 #define MIN_DECIMAL_VAL (1 / pow(10, DECIMAL_PRECISION)) /* get minimum decimal value based on precision */
 #define MAX_NR_WIDTH 3
-#define MAX_PERCENTAGE 100
-#define NR_OCCURRENCES_INDEX_WIDTH 2 /* maximum nr. width to be displayed under histogram drawing letter count index */
+#define MAX_PERCENTAGE ( pow(10, MAX_NR_WIDTH - 1) )
+#define NR_OCCURRENCES_INDEX_WIDTH 2 /* maximum occurrence index nr. width to be displayed under histogram drawing */
 #define MAX_OCCURRENCES_INDEX_NR pow(10, NR_OCCURRENCES_INDEX_WIDTH)
 #define S10_C 10 /* signed value constant */
 
 /* printf format defines */
-#define PRINTF_NR_WIDTH (DECIMAL_PRECISION + MAX_NR_WIDTH + 1) /* the number plus the '.' */
-#define CHARS_BETWEEN_NR1_NR2 4 /* the number of characters between the 2 variables in the printf format string */
-#define PRINTF_2ND_NR_WIDTH (DECIMAL_PRECISION + MAX_NR_WIDTH + 1) /* the number plus the '.' */
-#define CHARS_AFTER_NR2 3 /* "%:" and an extra space before the first symbol */
-#define PRINTF_LEN PRINTF_NR_WIDTH + CHARS_BETWEEN_NR1_NR2 + PRINTF_2ND_NR_WIDTH + CHARS_AFTER_NR2 /* the length of the string before the 2nd percentage number */
+#define PRINTF_NR_1_WIDTH (DECIMAL_PRECISION + MAX_NR_WIDTH + 1) /* the number plus the '.' */
+#define CHARS_BETWEEN_NR1_NR2 4 /* the number of characters between the 2 numbers in the printf format string: "% - " */
+#define PRINTF_NR_2_WIDTH (DECIMAL_PRECISION + MAX_NR_WIDTH + 1) /* the number plus the '.' */
+#define CHARS_AFTER_NR2 3 /* the number of characters after the 2nd number in the printf format string: "%: " */
+#define PRINTF_TEXT_LEN PRINTF_NR_1_WIDTH + CHARS_BETWEEN_NR1_NR2 + PRINTF_NR_2_WIDTH + CHARS_AFTER_NR2
 
 /* prints a histogram of the lengths of words in input */
 /* ToDo Clean up program, add functions, use variables instead of macros, document code */
@@ -83,14 +82,14 @@ int main()
 		if ( i != HIST_HEIGHT ) { /* skip the first and highest value, because we add an extra row at the end */
 			/* if this is the first row */
 			if (prc[i] == MAX_PERCENTAGE) {
-				(void)printf("%*.*f%% - %*.*f%%: ", PRINTF_NR_WIDTH, DECIMAL_PRECISION, (float)prc[i - 1], PRINTF_2ND_NR_WIDTH, DECIMAL_PRECISION, (float)prc[i]);
+				(void)printf("%*.*f%% - %*.*f%%: ", PRINTF_NR_1_WIDTH, DECIMAL_PRECISION, (float)prc[i - 1], PRINTF_NR_2_WIDTH, DECIMAL_PRECISION, (float)prc[i]);
 			}
 			/* else if this is the last row */
 			else if ( i == 0 ) {
-				(void)printf("%*.*f%% - %*.*f%%: ", PRINTF_NR_WIDTH, DECIMAL_PRECISION, MIN_DECIMAL_VAL, PRINTF_2ND_NR_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
+				(void)printf("%*.*f%% - %*.*f%%: ", PRINTF_NR_1_WIDTH, DECIMAL_PRECISION, MIN_DECIMAL_VAL, PRINTF_NR_2_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
 			}
 			else {
-				(void)printf("%*.*f%% - %*.*f%%: ", PRINTF_NR_WIDTH, DECIMAL_PRECISION, (float)prc[i - 1], PRINTF_2ND_NR_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
+				(void)printf("%*.*f%% - %*.*f%%: ", PRINTF_NR_1_WIDTH, DECIMAL_PRECISION, (float)prc[i - 1], PRINTF_NR_2_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
 			}
 			for ( int j = 0; j < MAX_WORD_LEN; ++j ) {
 				float ref = (float)i; /* reference */
@@ -117,7 +116,7 @@ int main()
 
 	/* print spaces equal to the width of the percentage row
 	 * this is so that the indexes are printed at the correct positions */
-	for ( int i = 0; i < PRINTF_LEN; ++i ) {
+	for ( int i = 0; i < PRINTF_TEXT_LEN; ++i ) {
 		(void)putchar(' ');
 	}
 
@@ -131,7 +130,7 @@ int main()
 		(void)putchar('\n');
 		/* print spaces equal to the width of the percentage row
 		 * this is so that the indexes are printed at the correct positions */
-		for ( int i = 0; i < PRINTF_LEN; ++i ) {
+		for ( int i = 0; i < PRINTF_TEXT_LEN; ++i ) {
 			(void)putchar(' ');
 		}
 

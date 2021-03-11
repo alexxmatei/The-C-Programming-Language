@@ -142,17 +142,17 @@ int main()
 		(void)putchar('\n');
 	}
 	else {
-		int lenWidth = 0;
-		int maxWidth = MAX_WORD_LEN;
+		int indexWidth = 0;
+		int maxIndex = MAX_WORD_LEN;
 		(void)printf("\n\nNumber of occurrences:\n");
 
-		while ( maxWidth != 0 ) {
-			maxWidth /= S10_C;
-			++ lenWidth;
+		while ( maxIndex != 0 ) {
+			maxIndex /= S10_C;
+			++ indexWidth;
 		}
 
 		for ( int i = 0; i < MAX_WORD_LEN; ++i ) {
-			(void)printf("%*d: %d\n", lenWidth, i + 1, histogram[i]);
+			(void)printf("%*d: %d\n", indexWidth, i + 1, histogram[i]);
 		}
 	}
 

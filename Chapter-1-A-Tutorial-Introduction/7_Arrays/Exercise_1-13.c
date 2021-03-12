@@ -113,7 +113,6 @@ int main()
 		(void)putchar('\n');
 	}
 
-
 	/* print spaces equal to the width of the percentage row
 	 * this is so that the indexes are printed at the correct positions */
 	for ( int i = 0; i < PRINTF_TEXT_LEN; ++i ) {
@@ -126,6 +125,10 @@ int main()
 		(void)printf("%-3d", i);
 	}
 
+	/* prints the word occurrence for each word width indicated by the index */
+	/* if the maximum number of occurrences is small enough,
+	 * this is done right below the index row
+	 * if not, a separate table is printed below the histogram */
 	if ( max < MAX_OCCURRENCES_INDEX_NR ) {
 		(void)putchar('\n');
 		/* print spaces equal to the width of the percentage row
@@ -156,6 +159,7 @@ int main()
 		}
 	}
 
+	/* if there are any numbers bigger than MAX_WORD_LEN, print how many there are */
 	if ( biggerWords > 0 ) {
 		(void)putchar('\n');
 		(void)printf("Words larger than %d letters: %d", MAX_WORD_LEN, biggerWords);

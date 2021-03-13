@@ -16,7 +16,7 @@
 #define DECIMAL_PRECISION 2 /* the number of decimals used for the percentages */
 #define MIN_DECIMAL_VAL (1 / pow(10, DECIMAL_PRECISION)) /* get minimum decimal value based on precision */
 #define MAX_NR_WIDTH 3
-#define MAX_PERCENTAGE ( pow(10, MAX_NR_WIDTH - 1) )
+#define MAX_PERCENTAGE (int)( pow(10, MAX_NR_WIDTH - 1) )
 #define NR_OCCURRENCES_INDEX_WIDTH 2 /* maximum occurrence index nr. width to be displayed under histogram drawing */
 #define MAX_OCCURRENCES_INDEX_NR pow(10, NR_OCCURRENCES_INDEX_WIDTH)
 #define S10_C 10 /* signed value constant */

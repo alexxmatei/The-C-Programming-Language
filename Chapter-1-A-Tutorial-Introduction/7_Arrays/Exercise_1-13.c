@@ -77,7 +77,12 @@ int main()
 	/* go through the top of the histogram to the bottom */
 	for ( int i = HIST_HEIGHT; i >= 0; --i ) {
 		if (i != 0) {
+/* ignore -Wconversion for the line between the #pragma statements */
+/* Justification: the conversion is intended */
+#pragma GCC diagnostic push /* remember state of the diagnostics before changes */
+#pragma GCC diagnostic ignored "-Wconversion"
 			prc[i - 1] = (int)((float)i / HIST_HEIGHT * MAX_PERCENTAGE);
+#pragma GCC diagnostic pop /* restore state of the diagnostics before changes */
 		}
 		if ( i != HIST_HEIGHT ) { /* skip the first and highest value, because we add an extra row at the end */
 			/* if this is the first row */

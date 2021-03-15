@@ -11,7 +11,6 @@
 #define IN  1 /* inside a word */
 #define OUT 0 /* outside a word */
 #define MAX_WORD_LEN 20 /* maximum word length tracked by the histogram */
-/* ToDo Why does it bug out for high values? Example: 100. */
 #define HIST_HEIGHT  20 /* height of the histogram */
 #define DECIMAL_PRECISION 2 /* the number of decimals used for the percentages */
 #define MIN_DECIMAL_VAL (1 / pow(10, DECIMAL_PRECISION)) /* get minimum decimal value based on precision */
@@ -29,8 +28,6 @@
 #define PRINTF_TEXT_LEN PRINTF_NR_1_WIDTH + CHARS_BETWEEN_NR1_NR2 + PRINTF_NR_2_WIDTH + CHARS_AFTER_NR2
 
 /* prints a histogram of the lengths of words in input */
-/* ToDo Clean up program, add functions, use variables instead of macros, document code */
-
 int main()
 {
 	int c;
@@ -40,7 +37,6 @@ int main()
 	int histogram[MAX_WORD_LEN] = { 0 }; /* initialise the array with 0 */
 	int biggerWords = 0; /* count the words larger than MAX_WORD_LEN */
 
-	/* ToDo why doesn't ((c != EOF) || (c != '*')) work ??? */
 	for ( c = getchar(); c != EOF; c = getchar() ) {
 		/* not a word, either a blank, tab or newline */
 		if ( (c == ' ') || (c == '\t') || (c == '\n') ) {

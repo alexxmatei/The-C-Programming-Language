@@ -14,10 +14,9 @@
 #define HIST_HEIGHT  20 /* height of the histogram */
 #define DECIMAL_PRECISION 2 /* the number of decimals used for the percentages */
 #define MIN_DECIMAL_VAL (1 / pow(10, DECIMAL_PRECISION)) /* get minimum decimal value based on precision */
-#define MAX_NR_WIDTH 3
-#define MAX_PERCENTAGE (int)( pow(10, MAX_NR_WIDTH - 1) )
-#define NR_OCCURRENCES_INDEX_WIDTH 2 /* maximum occurrence index nr. width to be displayed under histogram drawing */
-#define MAX_OCCURRENCES_INDEX_NR pow(10, NR_OCCURRENCES_INDEX_WIDTH)
+#define MAX_PERCENTAGE 100
+#define MAX_NR_WIDTH (int)log10(MAX_PERCENTAGE) + 1 /* obtain the max number width based on the widest number, the maximum percentage */
+#define MAX_OCCURRENCES_INDEX_NR 99 /* the maximum number to be displayed as an index under the histogram */
 #define S10_C 10 /* signed value constant */
 
 /* printf format defines */
@@ -130,7 +129,7 @@ int main()
 	/* if the maximum number of occurrences is small enough,
 	 * this is done right below the index row
 	 * if not, a separate table is printed below the histogram */
-	if ( max < MAX_OCCURRENCES_INDEX_NR ) {
+	if ( max <= MAX_OCCURRENCES_INDEX_NR ) {
 		(void)putchar('\n');
 		/* print spaces equal to the width of the percentage row
 		 * this is so that the indexes are printed at the correct positions */

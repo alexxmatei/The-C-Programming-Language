@@ -68,9 +68,8 @@ int main()
 		}
 	}
 
-	int prc[HIST_HEIGHT] = { 0 };
 	/* go through the top of the histogram to the bottom */
-	for ( int i = HIST_HEIGHT; i >= 0; --i ) {
+	for ( int i = HIST_HEIGHT, prc[HIST_HEIGHT] = { 0 }; i >= 0; --i ) {
 		if (i != 0) {
 /* ignore -Wconversion for the line between the #pragma statements */
 /* Justification: the conversion is intended */

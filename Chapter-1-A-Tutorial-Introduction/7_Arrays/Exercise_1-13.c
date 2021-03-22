@@ -70,7 +70,7 @@ int main()
 
 	/* go through the top of the histogram to the bottom */
 	for ( int i = HIST_HEIGHT, prc[HIST_HEIGHT] = { 0 }; i >= 0; --i ) {
-		if (i != 0) {
+		if ( i != 0 ) {
 /* ignore -Wconversion for the line between the #pragma statements */
 /* Justification: the conversion is intended */
 #pragma GCC diagnostic push /* remember state of the diagnostics before changes */
@@ -80,15 +80,21 @@ int main()
 		}
 		if ( i != HIST_HEIGHT ) { /* skip the first and highest value, because we add an extra row at the end */
 			/* if this is the first row */
-			if (prc[i] == MAX_PERCENTAGE) {
-				(void)printf("%*.*f%% - %*.*f%%: ", PRINTF_NR_1_WIDTH, DECIMAL_PRECISION, (float)prc[i - 1], PRINTF_NR_2_WIDTH, DECIMAL_PRECISION, (float)prc[i]);
+			if ( prc[i] == MAX_PERCENTAGE ) {
+				(void)printf("%*.*f%% - %*.*f%%: ",
+							 PRINTF_NR_1_WIDTH, DECIMAL_PRECISION, (float)prc[i - 1],
+							 PRINTF_NR_2_WIDTH, DECIMAL_PRECISION, (float)prc[i]);
 			}
 			/* else if this is the last row */
 			else if ( i == 0 ) {
-				(void)printf("%*.*f%% - %*.*f%%: ", PRINTF_NR_1_WIDTH, DECIMAL_PRECISION, MIN_DECIMAL_VAL, PRINTF_NR_2_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
+				(void)printf("%*.*f%% - %*.*f%%: ",
+							 PRINTF_NR_1_WIDTH, DECIMAL_PRECISION, MIN_DECIMAL_VAL,
+							 PRINTF_NR_2_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
 			}
 			else {
-				(void)printf("%*.*f%% - %*.*f%%: ", PRINTF_NR_1_WIDTH, DECIMAL_PRECISION, (float)prc[i - 1], PRINTF_NR_2_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
+				(void)printf("%*.*f%% - %*.*f%%: ",
+							PRINTF_NR_1_WIDTH, DECIMAL_PRECISION, (float)prc[i - 1],
+							PRINTF_NR_2_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
 			}
 			for ( int j = 0; j < MAX_WORD_LEN; ++j ) {
 				float ref = (float)i; /* reference */

@@ -30,7 +30,7 @@
 int main()
 {
 	int c;
-	int state = IN;
+	int state = IN; /* current state relative to a word */
 	int wl = 0; /* word length */
 	int max = 0; /* maximum occurrence of word */
 	int histogram[MAX_WORD_LEN] = { 0 }; /* initialise the array with 0 */
@@ -101,6 +101,9 @@ int main()
 				for ( int j = 0; j < MAX_WORD_LEN; ++j ) {
 					float ref = (float)i; /* reference */
 					if ( i == 0 ) {
+						/* instead of 0 take the minimum decimal value as reference */
+						/* this way values with 0 occurrences will be ignored, 
+						 * they will not be drawn as a '#' symbol in the last row */
 						ref = (float)MIN_DECIMAL_VAL;
 					}
 					/* the percentage of occurrences stored at the current index
@@ -109,6 +112,7 @@ int main()
 					/* scale the percentage (rounded down)
 					 * based on the height of the histogram */
 					float scaledPrc = (prcOfMax * (float)HIST_HEIGHT);
+					/* draw the histogram symbols for each row/column */
 					if ( scaledPrc >= ref ) {
 						(void)printf("%-3c", '#');
 					}
@@ -135,8 +139,7 @@ int main()
 
 	/* prints the word occurrence for each word width indicated by the index */
 	/* if the maximum number of occurrences is small enough,
-	 * this is done right below the index row
-	 * if not, a separate table is printed below the histogram */
+	 * this is done right below the index row */
 	if ( max <= MAX_OCCURRENCES_INDEX_NR ) {
 		(void)putchar('\n');
 		/* print spaces equal to the width of the percentage row
@@ -152,6 +155,8 @@ int main()
 		}
 		(void)putchar('\n');
 	}
+	/* if the maximum number of occurrences is too big,
+	 * a separate table is printed below the histogram */
 	else {
 		int indexWidth = 0;
 		int maxIndex = MAX_WORD_LEN;

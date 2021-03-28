@@ -38,7 +38,7 @@ int main()
 	//int histogram[MAX_CHARACTERS_TRACKED] = { 0 }; /* initialise the array with 0 */
 	/* initialise the array with non character values (-1) */
 	/* note: characters[MAX_CHARACTERS_TRACKED] = { 0 } only works with 0 */
-	int characters[MAX_CHARACTERS_TRACKED] = {[0 ... (MAX_CHARACTERS_TRACKED - 1)] = -1 };
+	int characters[MAX_CHARACTERS_TRACKED] = {[0 ... (MAX_CHARACTERS_TRACKED - 1)] = -1};
 	//int biggerWords = 0; /* count the words larger than MAX_CHARACTERS_TRACKED */
 
 	for ( c = getchar(); c != EOF; c = getchar() ) {
@@ -58,7 +58,9 @@ int main()
 				}
 				else {
 					int i = 0;
+					/* find the first available index in the characters array */
 					for (/* nothing */; (i < MAX_CHARACTERS_TRACKED) && (characters[i] != -1); ++i){};
+					/* store the new character at that index */
 					characters[i] = c;
 				}
 			}

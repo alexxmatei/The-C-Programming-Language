@@ -8,6 +8,11 @@
 #include <stdio.h>
 #include <math.h>
 
+typedef unsigned char bool;
+
+#define TRUE  (bool)1u
+#define FALSE (bool)0u
+
 #define MAX_CHARACTERS_TRACKED 26 /* maximum word length tracked by the histogram */
 //#define HIST_HEIGHT  20 /* height of the histogram */
 //#define DECIMAL_PRECISION 2 /* the number of decimals used for the percentages */
@@ -31,7 +36,7 @@ int main()
 	int c;
 	//int max = 0; /* maximum occurrence of word */
 	//int histogram[MAX_CHARACTERS_TRACKED] = { 0 }; /* initialise the array with 0 */
-	/* initialise the array with non character values (-1)*/
+	/* initialise the array with non character values (-1) */
 	/* note: characters[MAX_CHARACTERS_TRACKED] = { 0 } only works with 0 */
 	int characters[MAX_CHARACTERS_TRACKED] = {[0 ... (MAX_CHARACTERS_TRACKED - 1)] = -1 };
 	//int biggerWords = 0; /* count the words larger than MAX_CHARACTERS_TRACKED */
@@ -39,14 +44,14 @@ int main()
 	for ( c = getchar(); c != EOF; c = getchar() ) {
 		/* not a blank, tab or newline */
 		if ( (c != ' ') && (c != '\t') && (c != '\n') ) {
-			unsigned char charExists_b = 0;
+			bool charExists_b = FALSE;
 			for (int i = 0; i < MAX_CHARACTERS_TRACKED; ++i)
 			{
 				if ( c == characters[i] ) {
-					charExists_b = 1u;
+					charExists_b = TRUE;
 				}
 			}
-			if (charExists_b == 0u) {
+			if (charExists_b == FALSE) {
 				/* initialise first new character */
 				if (characters[0] == -1) {
 					characters[0] = c;

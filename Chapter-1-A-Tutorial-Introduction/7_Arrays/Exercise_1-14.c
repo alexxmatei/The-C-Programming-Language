@@ -35,7 +35,7 @@ int main()
 {
 	int c;
 	//int max = 0; /* maximum occurrence of word */
-	//int histogram[MAX_CHARACTERS_TRACKED] = { 0 }; /* initialise the array with 0 */
+	int histogram[MAX_CHARACTERS_TRACKED] = { 0 }; /* initialise the array with 0 */
 	/* initialise the array with non character values (-1) */
 	/* note: characters[MAX_CHARACTERS_TRACKED] = { 0 } only works with 0 */
 	int characters[MAX_CHARACTERS_TRACKED] = {[0 ... (MAX_CHARACTERS_TRACKED - 1)] = -1};
@@ -49,12 +49,14 @@ int main()
 			{
 				if ( c == characters[i] ) {
 					charExists_b = TRUE;
+					++histogram[i];
 				}
 			}
 			if (charExists_b == FALSE) {
 				/* initialise first new character */
 				if (characters[0] == -1) {
 					characters[0] = c;
+					++histogram[0];
 				}
 				else {
 					int i = 0;
@@ -62,10 +64,20 @@ int main()
 					for (/* nothing */; (i < MAX_CHARACTERS_TRACKED) && (characters[i] != -1); ++i){};
 					/* store the new character at that index */
 					characters[i] = c;
+					++histogram[i];
 				}
 			}
 		}
 	}
+
+	/* START - debug */
+	for ( int i = 0; i < MAX_CHARACTERS_TRACKED; ++i ) {
+		if ( characters[i] != -1 ) {
+			(void)printf("characters[%d] = %c\n", i, characters[i]);
+			(void)printf("histogram [%d] = %d\n\n", i, histogram[i]);
+		}
+	}
+	/* STOP - debug */
 
 //	/* find the maximum occurrences of a word */
 //	for ( int i = 0; i < MAX_CHARACTERS_TRACKED; ++i ) {

@@ -70,15 +70,6 @@ int main()
 		}
 	}
 
-	/* START - debug */
-	for ( int i = 0; i < MAX_CHARACTERS_TRACKED; ++i ) {
-		if ( characters[i] != -1 ) {
-			(void)printf("characters[%d] = %c\n", i, characters[i]);
-			(void)printf("histogram [%d] = %d\n\n", i, histogram[i]);
-		}
-	}
-	/* STOP - debug */
-
 //	/* find the maximum occurrences of a word */
 //	for ( int i = 0; i < MAX_CHARACTERS_TRACKED; ++i ) {
 //		if ( max < histogram[i] ) {

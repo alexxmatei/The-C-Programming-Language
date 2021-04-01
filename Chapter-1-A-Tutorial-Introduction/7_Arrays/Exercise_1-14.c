@@ -19,15 +19,15 @@ typedef unsigned char bool;
 #define MIN_DECIMAL_VAL (1 / pow(10, DECIMAL_PRECISION)) /* get minimum decimal value based on precision */
 #define MAX_PERCENTAGE 100
 #define MAX_NR_WIDTH (int)log10(MAX_PERCENTAGE) + 1 /* obtain the max number width based on the widest number, the maximum percentage */
-//#define MAX_OCCURRENCES_INDEX_NR 99 /* the maximum number to be displayed as an index under the histogram */
-//#define S10_C 10 /* signed value constant */
+#define MAX_OCCURRENCES_INDEX_NR 99 /* the maximum number to be displayed as an index under the histogram */
+#define S10_C 10 /* signed value constant */
 
 /* printf format defines */
 #define PRINTF_NR_1_WIDTH (DECIMAL_PRECISION + MAX_NR_WIDTH + 1) /* the number plus the '.' */
-//#define CHARS_BETWEEN_NR1_NR2 4 /* the number of characters between the 2 numbers in the printf format string: "% - " */
+#define CHARS_BETWEEN_NR1_NR2 4 /* the number of characters between the 2 numbers in the printf format string: "% - " */
 #define PRINTF_NR_2_WIDTH (DECIMAL_PRECISION + MAX_NR_WIDTH + 1) /* the number plus the '.' */
-//#define CHARS_AFTER_NR2 3 /* the number of characters after the 2nd number in the printf format string: "%: " */
-//#define PRINTF_TEXT_LEN PRINTF_NR_1_WIDTH + CHARS_BETWEEN_NR1_NR2 + PRINTF_NR_2_WIDTH + CHARS_AFTER_NR2
+#define CHARS_AFTER_NR2 3 /* the number of characters after the 2nd number in the printf format string: "%: " */
+#define PRINTF_TEXT_LEN PRINTF_NR_1_WIDTH + CHARS_BETWEEN_NR1_NR2 + PRINTF_NR_2_WIDTH + CHARS_AFTER_NR2
 
 /* prints a histogram of the lengths of words in input */
 /* ToDo Sort letter order by occurrence first and alphabet order second */
@@ -133,54 +133,54 @@ int main()
 			(void)putchar('\n');
 		}
 	}
-//
-//	/* print spaces equal to the width of the percentage row
-//	 * this is so that the indexes are printed at the correct positions */
-//	for ( int i = 0; i < PRINTF_TEXT_LEN; ++i ) {
-//		(void)putchar(' ');
-//	}
-//
-//	/* print the indexes on the bottom of the histogram */
-//	for ( int i = 1; i <= MAX_CHARACTERS_TRACKED; ++i ) {
-//		/* each number is left-justified and has at minimum a width of 3 */
-//		(void)printf("%-3d", i);
-//	}
-//
-//	/* prints the word occurrence for each word width indicated by the index */
-//	/* if the maximum number of occurrences is small enough,
-//	 * this is done right below the index row */
-//	if ( max <= MAX_OCCURRENCES_INDEX_NR ) {
-//		(void)putchar('\n');
-//		/* print spaces equal to the width of the percentage row
-//		 * this is so that the indexes are printed at the correct positions */
-//		for ( int i = 0; i < PRINTF_TEXT_LEN; ++i ) {
-//			(void)putchar(' ');
-//		}
-//
-//		/* print the indexes on the bottom of the histogram */
-//		for ( int i = 0; i < MAX_CHARACTERS_TRACKED; ++i ) {
-//			/* each number is left-justified and has at minimum a width of 3 */
-//			(void)printf("%-3d", histogram[i]);
-//		}
-//		(void)putchar('\n');
-//	}
-//	/* if the maximum number of occurrences is too big,
-//	 * a separate table is printed below the histogram */
-//	else {
-//		int indexWidth = 0;
-//		int maxIndex = MAX_CHARACTERS_TRACKED;
-//		(void)printf("\n\nNumber of occurrences:\n");
-//
-//		while ( maxIndex != 0 ) {
-//			maxIndex /= S10_C;
-//			++ indexWidth;
-//		}
-//
-//		for ( int i = 0; i < MAX_CHARACTERS_TRACKED; ++i ) {
-//			(void)printf("%*d: %d\n", indexWidth, i + 1, histogram[i]);
-//		}
-//	}
-//
+
+	/* print spaces equal to the width of the percentage row
+	 * this is so that the indexes are printed at the correct positions */
+	for ( int i = 0; i < PRINTF_TEXT_LEN; ++i ) {
+		(void)putchar(' ');
+	}
+
+	/* print the indexes on the bottom of the histogram */
+	for ( int i = 0; i < MAX_CHARACTERS_TRACKED; ++i ) {
+		/* each number is left-justified and has at minimum a width of 3 */
+		(void)printf("%-3c", characters[i]);
+	}
+
+	/* prints the word occurrence for each word width indicated by the index */
+	/* if the maximum number of occurrences is small enough,
+	 * this is done right below the index row */
+	if ( max <= MAX_OCCURRENCES_INDEX_NR ) {
+		(void)putchar('\n');
+		/* print spaces equal to the width of the percentage row
+		 * this is so that the indexes are printed at the correct positions */
+		for ( int i = 0; i < PRINTF_TEXT_LEN; ++i ) {
+			(void)putchar(' ');
+		}
+
+		/* print the indexes on the bottom of the histogram */
+		for ( int i = 0; i < MAX_CHARACTERS_TRACKED; ++i ) {
+			/* each number is left-justified and has at minimum a width of 3 */
+			(void)printf("%-3d", histogram[i]);
+		}
+		(void)putchar('\n');
+	}
+	/* if the maximum number of occurrences is too big,
+	 * a separate table is printed below the histogram */
+	else {
+		int indexWidth = 0;
+		int maxIndex = MAX_CHARACTERS_TRACKED;
+		(void)printf("\n\nNumber of occurrences:\n");
+
+		while ( maxIndex != 0 ) {
+			maxIndex /= S10_C;
+			++ indexWidth;
+		}
+
+		for ( int i = 0; i < MAX_CHARACTERS_TRACKED; ++i ) {
+			(void)printf("%*d: %d\n", indexWidth, i + 1, histogram[i]);
+		}
+	}
+
 //	/* if there are any numbers bigger than MAX_CHARACTERS_TRACKED, print how many there are */
 //	if ( biggerWords > 0 ) {
 //		(void)putchar('\n');

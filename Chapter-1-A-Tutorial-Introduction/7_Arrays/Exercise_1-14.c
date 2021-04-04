@@ -40,6 +40,7 @@ int main()
 	/* note: characters[MAX_CHARACTERS_TRACKED] = { 0 } only works with 0 */
 	int characters[MAX_CHARACTERS_TRACKED] = {[0 ... (MAX_CHARACTERS_TRACKED - 1)] = -1};
 	//int biggerWords = 0; /* count the words larger than MAX_CHARACTERS_TRACKED */
+	int totalCharactersTracked = 0; /* keep track how many different characters are stored in the characters array */
 
 	for ( c = getchar(); c != EOF; c = getchar() ) {
 		/* not a blank, tab or newline */
@@ -53,6 +54,7 @@ int main()
 				}
 			}
 			if (charExists_b == FALSE) {
+				++totalCharactersTracked;
 				/* initialise first new character */
 				if (characters[0] == -1) {
 					characters[0] = c;
@@ -71,7 +73,7 @@ int main()
 	}
 
 	/* find the maximum occurrences of a word */
-	for ( int i = 0; i < MAX_CHARACTERS_TRACKED; ++i ) {
+	for ( int i = 0; i < totalCharactersTracked; ++i ) {
 		if ( max < histogram[i] ) {
 			max = histogram[i];
 		}
@@ -107,7 +109,7 @@ int main()
 								 PRINTF_NR_1_WIDTH, DECIMAL_PRECISION, (float)prc[i - 1],
 								 PRINTF_NR_2_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
 				}
-				for ( int j = 0; j < MAX_CHARACTERS_TRACKED; ++j ) {
+				for ( int j = 0; j < totalCharactersTracked; ++j ) {
 					float ref = (float)i; /* reference */
 					if ( i == 0 ) {
 						/* instead of 0 take the minimum decimal value as reference */
@@ -141,7 +143,7 @@ int main()
 	}
 
 	/* print the indexes on the bottom of the histogram */
-	for ( int i = 0; i < MAX_CHARACTERS_TRACKED; ++i ) {
+	for ( int i = 0; i < totalCharactersTracked; ++i ) {
 		/* each number is left-justified and has at minimum a width of 3 */
 		(void)printf("%-3c", characters[i]);
 	}
@@ -158,7 +160,7 @@ int main()
 		}
 
 		/* print the indexes on the bottom of the histogram */
-		for ( int i = 0; i < MAX_CHARACTERS_TRACKED; ++i ) {
+		for ( int i = 0; i < totalCharactersTracked; ++i ) {
 			/* each number is left-justified and has at minimum a width of 3 */
 			(void)printf("%-3d", histogram[i]);
 		}
@@ -168,7 +170,7 @@ int main()
 	 * a separate table is printed below the histogram */
 	else {
 		int indexWidth = 0;
-		int maxIndex = MAX_CHARACTERS_TRACKED;
+		int maxIndex = totalCharactersTracked;
 		(void)printf("\n\nNumber of occurrences:\n");
 
 		while ( maxIndex != 0 ) {
@@ -176,8 +178,8 @@ int main()
 			++ indexWidth;
 		}
 
-		for ( int i = 0; i < MAX_CHARACTERS_TRACKED; ++i ) {
-			(void)printf("%*d: %d\n", indexWidth, i + 1, histogram[i]);
+		for ( int i = 0; i < totalCharactersTracked; ++i ) {
+			(void)printf("%*c: %d\n", indexWidth, characters[i], histogram[i]);
 		}
 	}
 

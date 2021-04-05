@@ -46,24 +46,24 @@ int main()
 		/* not a blank, tab or newline */
 		if ( (c != ' ') && (c != '\t') && (c != '\n') ) {
 			bool charExists_b = FALSE;
-			for (int i = 0; i < MAX_CHARACTERS_TRACKED; ++i)
-			{
+			for ( int i = 0; i < MAX_CHARACTERS_TRACKED; ++i ) {
 				if ( c == characters[i] ) {
 					charExists_b = TRUE;
 					++histogram[i];
 				}
 			}
-			if (charExists_b == FALSE) {
+			if ( (charExists_b == FALSE) && (totalCharactersTracked < MAX_CHARACTERS_TRACKED) ) {
 				++totalCharactersTracked;
 				/* initialise first new character */
-				if (characters[0] == -1) {
+				if ( characters[0] == -1 ) {
 					characters[0] = c;
 					++histogram[0];
 				}
 				else {
 					int i = 0;
 					/* find the first available index in the characters array */
-					for (/* nothing */; (i < MAX_CHARACTERS_TRACKED) && (characters[i] != -1); ++i){};
+					for ( /* nothing */; (i < MAX_CHARACTERS_TRACKED) && (characters[i] != -1); ++i ) {
+					};
 					/* store the new character at that index */
 					characters[i] = c;
 					++histogram[i];

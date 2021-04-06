@@ -13,7 +13,7 @@ typedef unsigned char bool;
 #define TRUE  (bool)1u
 #define FALSE (bool)0u
 
-#define MAX_CHARACTERS_TRACKED 26 /* maximum word length tracked by the histogram */
+#define MAX_CHARACTERS_TRACKED 5 /* maximum word length tracked by the histogram */
 #define HIST_HEIGHT  20 /* height of the histogram */
 #define DECIMAL_PRECISION 2 /* the number of decimals used for the percentages */
 #define MIN_DECIMAL_VAL (1 / pow(10, DECIMAL_PRECISION)) /* get minimum decimal value based on precision */
@@ -39,7 +39,7 @@ int main()
 	/* initialise the array with non character values (-1) */
 	/* note: characters[MAX_CHARACTERS_TRACKED] = { 0 } only works with 0 */
 	int characters[MAX_CHARACTERS_TRACKED] = {[0 ... (MAX_CHARACTERS_TRACKED - 1)] = -1};
-	//int biggerWords = 0; /* count the words larger than MAX_CHARACTERS_TRACKED */
+	int untrackedCharacters = 0; /* count the words larger than MAX_CHARACTERS_TRACKED */
 	int totalCharactersTracked = 0; /* keep track how many different characters are stored in the characters array */
 
 	for ( c = getchar(); c != EOF; c = getchar() ) {
@@ -52,25 +52,38 @@ int main()
 					++histogram[i];
 				}
 			}
-			if ( (charExists_b == FALSE) && (totalCharactersTracked < MAX_CHARACTERS_TRACKED) ) {
-				++totalCharactersTracked;
-				/* initialise first new character */
-				if ( characters[0] == -1 ) {
-					characters[0] = c;
-					++histogram[0];
+			if ( charExists_b == FALSE ) {
+				if ( totalCharactersTracked < MAX_CHARACTERS_TRACKED ) {
+					++totalCharactersTracked;
+					/* initialise first new character */
+					if ( characters[0] == -1 ) {
+						characters[0] = c;
+						++histogram[0];
+					}
+					else {
+						int i = 0;
+						/* find the first available index in the characters array */
+						for ( /* nothing */; (i < MAX_CHARACTERS_TRACKED) && (characters[i] != -1); ++i ) {
+						};
+						/* store the new character at that index */
+						characters[i] = c;
+						++histogram[i];
+					}
 				}
 				else {
-					int i = 0;
-					/* find the first available index in the characters array */
-					for ( /* nothing */; (i < MAX_CHARACTERS_TRACKED) && (characters[i] != -1); ++i ) {
-					};
-					/* store the new character at that index */
-					characters[i] = c;
-					++histogram[i];
+					++untrackedCharacters;
 				}
 			}
 		}
 	}
+
+	/* START - debug */
+	for ( int i = 0; i < totalCharactersTracked; ++i ) {
+		(void)printf("characters[%d] = %c\n", i, characters[i]);
+		(void)printf("histogram [%d] = %d\n\n", i, histogram[i]);
+	}
+	(void)printf("Total characters tracked: %d\n\n", totalCharactersTracked);
+	/* STOP - debug */
 
 	/* find the maximum occurrences of a word */
 	for ( int i = 0; i < totalCharactersTracked; ++i ) {
@@ -183,11 +196,11 @@ int main()
 		}
 	}
 
-//	/* if there are any numbers bigger than MAX_CHARACTERS_TRACKED, print how many there are */
-//	if ( biggerWords > 0 ) {
-//		(void)putchar('\n');
-//		(void)printf("Words larger than %d letters: %d", MAX_CHARACTERS_TRACKED, biggerWords);
-//	}
+	/* if there are any numbers bigger than MAX_CHARACTERS_TRACKED, print how many there are */
+	if ( untrackedCharacters > 0 ) {
+		(void)putchar('\n');
+		(void)printf("Untracked characters: %d", untrackedCharacters);
+	}
 
 	return 0;
 }

@@ -95,57 +95,62 @@ int main()
 	{
 		int prc[HIST_HEIGHT] = { 0 };
 		/* go through the top of the histogram to the bottom */
-		for ( int i = HIST_HEIGHT; i >= 0; --i ) {
-			if ( i != 0 ) {
+		if ( totalCharactersTracked > 0 ) {
+			for ( int i = HIST_HEIGHT; i >= 0; --i ) {
+				if ( i != 0 ) {
 /* ignore -Wconversion for the line between the #pragma statements */
 /* Justification: the conversion is intended */
 #pragma GCC diagnostic push /* remember state of the diagnostics before changes */
 #pragma GCC diagnostic ignored "-Wconversion"
-				prc[i - 1] = (int)((float)i / HIST_HEIGHT * MAX_PERCENTAGE);
+					prc[i - 1] = (int)((float)i / HIST_HEIGHT * MAX_PERCENTAGE);
 #pragma GCC diagnostic pop /* restore state of the diagnostics before changes */
-			}
-			if ( i != HIST_HEIGHT ) { /* skip the first and highest value, because we add an extra row at the end */
-				/* if this is the first row */
-				if ( prc[i] == MAX_PERCENTAGE ) {
-					(void)printf("%*.*f%% - %*.*f%%: ",
-								 PRINTF_NR_1_WIDTH, DECIMAL_PRECISION, (float)prc[i - 1],
-								 PRINTF_NR_2_WIDTH, DECIMAL_PRECISION, (float)prc[i]);
 				}
-				/* else if this is the last row */
-				else if ( i == 0 ) {
-					(void)printf("%*.*f%% - %*.*f%%: ",
-								 PRINTF_NR_1_WIDTH, DECIMAL_PRECISION, MIN_DECIMAL_VAL,
-								 PRINTF_NR_2_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
-				}
-				else {
-					(void)printf("%*.*f%% - %*.*f%%: ",
-								 PRINTF_NR_1_WIDTH, DECIMAL_PRECISION, (float)prc[i - 1],
-								 PRINTF_NR_2_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
-				}
-				for ( int j = 0; j < totalCharactersTracked; ++j ) {
-					float ref = (float)i; /* reference */
-					if ( i == 0 ) {
-						/* instead of 0 take the minimum decimal value as reference */
-						/* this way values with 0 occurrences will be ignored,
-						 * they will not be drawn as a '#' symbol in the last row */
-						ref = (float)MIN_DECIMAL_VAL;
+				if ( i != HIST_HEIGHT ) { /* skip the first and highest value, because we add an extra row at the end */
+					/* if this is the first row */
+					if ( prc[i] == MAX_PERCENTAGE ) {
+						(void)printf("%*.*f%% - %*.*f%%: ",
+									 PRINTF_NR_1_WIDTH, DECIMAL_PRECISION, (float)prc[i - 1],
+									 PRINTF_NR_2_WIDTH, DECIMAL_PRECISION, (float)prc[i]);
 					}
-					/* the percentage of occurrences stored at the current index
-					 * relative to the maximum number of occurrences */
-					float prcOfMax = (float)histogram[j] / (float)max;
-					/* scale the percentage (rounded down)
-					 * based on the height of the histogram */
-					float scaledPrc = (prcOfMax * (float)HIST_HEIGHT);
-					/* draw the histogram symbols for each row/column */
-					if ( scaledPrc >= ref ) {
-						(void)printf("%-3c", '#');
+					/* else if this is the last row */
+					else if ( i == 0 ) {
+						(void)printf("%*.*f%% - %*.*f%%: ",
+									 PRINTF_NR_1_WIDTH, DECIMAL_PRECISION, MIN_DECIMAL_VAL,
+									 PRINTF_NR_2_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
 					}
 					else {
-						(void)printf("%-3c", '·');
+						(void)printf("%*.*f%% - %*.*f%%: ",
+									 PRINTF_NR_1_WIDTH, DECIMAL_PRECISION, (float)prc[i - 1],
+									 PRINTF_NR_2_WIDTH, DECIMAL_PRECISION, prc[i] - MIN_DECIMAL_VAL);
+					}
+					for ( int j = 0; j < totalCharactersTracked; ++j ) {
+						float ref = (float)i; /* reference */
+						if ( i == 0 ) {
+							/* instead of 0 take the minimum decimal value as reference */
+							/* this way values with 0 occurrences will be ignored,
+							 * they will not be drawn as a '#' symbol in the last row */
+							ref = (float)MIN_DECIMAL_VAL;
+						}
+						/* the percentage of occurrences stored at the current index
+						 * relative to the maximum number of occurrences */
+						float prcOfMax = (float)histogram[j] / (float)max;
+						/* scale the percentage (rounded down)
+						 * based on the height of the histogram */
+						float scaledPrc = (prcOfMax * (float)HIST_HEIGHT);
+						/* draw the histogram symbols for each row/column */
+						if ( scaledPrc >= ref ) {
+							(void)printf("%-3c", '#');
+						}
+						else {
+							(void)printf("%-3c", '·');
+						}
 					}
 				}
+				(void)putchar('\n');
 			}
-			(void)putchar('\n');
+		}
+		else {
+			(void)printf("No characters read from input.");
 		}
 	}
 

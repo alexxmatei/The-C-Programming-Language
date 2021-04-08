@@ -29,6 +29,9 @@ typedef unsigned char bool;
 #define CHARS_AFTER_NR2 3 /* the number of characters after the 2nd number in the printf format string: "%: " */
 #define PRINTF_TEXT_LEN PRINTF_NR_1_WIDTH + CHARS_BETWEEN_NR1_NR2 + PRINTF_NR_2_WIDTH + CHARS_AFTER_NR2
 
+void swap(int *xp, int *yp);
+void reverseBubbleSort(int arr[], int n);
+
 /* prints a histogram of the lengths of words in input */
 /* ToDo Sort letter order by occurrence first and alphabet order second */
 int main()
@@ -208,4 +211,27 @@ int main()
 	}
 
 	return 0;
+}
+
+void swap(int *xp, int *yp)
+{
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+
+/* A function to implement reverse (high to low) bubble sort
+   It sorts the first array based on its values, from highest to lowest */
+void reverseBubbleSort(int arr[], int n)
+{
+   int i;
+   int j;
+   for (i = 0; i < (n - 1); i++) {
+       /* Last i elements are already in place */
+       for (j = 0; j < (n - i - 1); j++) {
+           if (arr[j] < arr[j+1]) {
+              swap(&arr[j], &arr[j+1]);
+           }
+       }
+   }
 }

@@ -30,7 +30,7 @@ typedef unsigned char bool;
 #define PRINTF_TEXT_LEN PRINTF_NR_1_WIDTH + CHARS_BETWEEN_NR1_NR2 + PRINTF_NR_2_WIDTH + CHARS_AFTER_NR2
 
 void swap(int *xp, int *yp);
-void reverseBubbleSort(int arr[], int n);
+void reverseBubbleSort(int arr[], int arr2[], int n);
 
 /* prints a histogram of the lengths of words in input */
 /* ToDo Sort letter order by occurrence first and alphabet order second */
@@ -81,6 +81,15 @@ int main()
 	}
 
 	/* START - debug */
+	for ( int i = 0; i < totalCharactersTracked; ++i ) {
+		(void)printf("Before sort:\n");
+		(void)printf("characters[%d] = %c\n", i, characters[i]);
+		(void)printf("histogram [%d] = %d\n\n", i, histogram[i]);
+	}
+	(void)printf("Total characters tracked: %d\n\n", totalCharactersTracked);
+	(void)printf("After sort:\n");
+	reverseBubbleSort(histogram, characters, totalCharactersTracked);
+
 	for ( int i = 0; i < totalCharactersTracked; ++i ) {
 		(void)printf("characters[%d] = %c\n", i, characters[i]);
 		(void)printf("histogram [%d] = %d\n\n", i, histogram[i]);
@@ -221,8 +230,10 @@ void swap(int *xp, int *yp)
 }
 
 /* A function to implement reverse (high to low) bubble sort
-   It sorts the first array based on its values, from highest to lowest */
-void reverseBubbleSort(int arr[], int n)
+   It sorts the first array based on its values, from highest to lowest
+   The second array is sorted based on the values of the first array
+   Therefore the values in the second array are not taken into account */
+void reverseBubbleSort(int arr[], int arr2[], int n)
 {
    int i;
    int j;
@@ -231,6 +242,7 @@ void reverseBubbleSort(int arr[], int n)
        for (j = 0; j < (n - i - 1); j++) {
            if (arr[j] < arr[j+1]) {
               swap(&arr[j], &arr[j+1]);
+              swap(&arr2[j], &arr2[j+1]);
            }
        }
    }

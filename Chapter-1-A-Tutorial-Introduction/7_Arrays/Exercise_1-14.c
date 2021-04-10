@@ -80,29 +80,7 @@ int main()
 		}
 	}
 
-	/* START - debug */
-	for ( int i = 0; i < totalCharactersTracked; ++i ) {
-		(void)printf("Before sort:\n");
-		(void)printf("characters[%d] = %c\n", i, characters[i]);
-		(void)printf("histogram [%d] = %d\n\n", i, histogram[i]);
-	}
-	(void)printf("Total characters tracked: %d\n\n", totalCharactersTracked);
-	(void)printf("After sort:\n");
 	reverseBubbleSort(histogram, characters, totalCharactersTracked);
-
-	for ( int i = 0; i < totalCharactersTracked; ++i ) {
-		(void)printf("characters[%d] = %c\n", i, characters[i]);
-		(void)printf("histogram [%d] = %d\n\n", i, histogram[i]);
-	}
-	(void)printf("Total characters tracked: %d\n\n", totalCharactersTracked);
-	/* STOP - debug */
-
-	/* find the maximum occurrences of a word */
-	for ( int i = 0; i < totalCharactersTracked; ++i ) {
-		if ( max < histogram[i] ) {
-			max = histogram[i];
-		}
-	}
 
 	{
 		int prc[HIST_HEIGHT] = { 0 };

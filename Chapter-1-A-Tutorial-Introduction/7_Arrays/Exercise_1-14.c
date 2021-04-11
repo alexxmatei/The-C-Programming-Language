@@ -33,7 +33,6 @@ void swap(int *xp, int *yp);
 void reverseBubbleSort(int arr[], int arr2[], int n);
 
 /* prints a histogram of the lengths of words in input */
-/* ToDo Sort letter order by occurrence first and alphabet order second */
 int main()
 {
 	int c;
@@ -83,6 +82,13 @@ int main()
 	}
 
 	reverseBubbleSort(histogram, characters, totalCharactersTracked);
+
+	/* find the maximum occurrences of a character */
+	for ( int i = 0; i < totalCharactersTracked; ++i ) {
+		if ( max < histogram[i] ) {
+			max = histogram[i];
+		}
+	}
 
 	{
 		int prc[HIST_HEIGHT] = { 0 };

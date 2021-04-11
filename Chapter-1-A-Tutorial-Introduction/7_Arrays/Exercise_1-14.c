@@ -39,9 +39,11 @@ int main()
 	int c;
 	int max = 0; /* maximum occurrence of word */
 	int histogram[MAX_CHARACTERS_TRACKED] = { 0 }; /* initialise the array with 0 */
-	/* initialise the array with non character values (-1) */
-	/* note: characters[MAX_CHARACTERS_TRACKED] = { 0 } only works with 0 */
-	int characters[MAX_CHARACTERS_TRACKED] = {[0 ... (MAX_CHARACTERS_TRACKED - 1)] = -1};
+	int characters[MAX_CHARACTERS_TRACKED];
+	/* initialise the characters array with -1 */
+	for (int i = 0; i < MAX_CHARACTERS_TRACKED; ++i) {
+		characters[i] = -1;
+	}
 	int untrackedCharacters = 0; /* count the words larger than MAX_CHARACTERS_TRACKED */
 	int totalCharactersTracked = 0; /* keep track how many different characters are stored in the characters array */
 

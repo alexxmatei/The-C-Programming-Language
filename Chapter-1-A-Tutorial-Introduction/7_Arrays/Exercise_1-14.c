@@ -13,7 +13,7 @@ typedef unsigned char bool;
 #define TRUE  (bool)1u
 #define FALSE (bool)0u
 
-#define MAX_CHARACTERS_TRACKED 5 /* maximum word length tracked by the histogram */
+#define MAX_CHARACTERS_TRACKED 5 /* maximum characters tracked by the histogram */
 #define HIST_HEIGHT  20 /* height of the histogram */
 #define DECIMAL_PRECISION 2 /* the number of decimals used for the percentages */
 #define MIN_DECIMAL_VAL (1 / pow(10, DECIMAL_PRECISION)) /* get minimum decimal value based on precision */
@@ -32,18 +32,21 @@ typedef unsigned char bool;
 void swap(int *xp, int *yp);
 void reverseBubbleSort(int arr[], int arr2[], int n);
 
-/* prints a histogram of the lengths of words in input */
+/* prints a histogram of the character occurrence frequency in input */
 int main()
 {
 	int c;
-	int max = 0; /* maximum occurrence of word */
+	int max = 0; /* maximum occurrence of character */
 	int histogram[MAX_CHARACTERS_TRACKED] = { 0 }; /* initialise the array with 0 */
 	int characters[MAX_CHARACTERS_TRACKED];
 	/* initialise the characters array with -1 */
 	for (int i = 0; i < MAX_CHARACTERS_TRACKED; ++i) {
 		characters[i] = -1;
 	}
-	int untrackedCharacters = 0; /* count the words larger than MAX_CHARACTERS_TRACKED */
+	/* keep track of any extra characters that do not fit in the characters array
+	 * if a new character is found while the array is full (MAX_CHARACTERS_TRACKED elements)
+	 * it will be tracked in this variable */
+	int untrackedCharacters = 0;
 	int totalCharactersTracked = 0; /* keep track how many different characters are stored in the characters array */
 
 	for ( c = getchar(); c != EOF; c = getchar() ) {
@@ -81,6 +84,8 @@ int main()
 		}
 	}
 
+	/* after processing inputs, sort the histogram and character arrays */
+	/* the arrays are sorted based on the character occurrence frequency stored in the histogram array */
 	reverseBubbleSort(histogram, characters, totalCharactersTracked);
 
 	/* find the maximum occurrences of a character */
@@ -90,6 +95,7 @@ int main()
 		}
 	}
 
+	/* draw the histogram */
 	{
 		int prc[HIST_HEIGHT] = { 0 };
 		/* go through the top of the histogram to the bottom */
@@ -199,7 +205,7 @@ int main()
 		}
 	}
 
-	/* if there are any numbers bigger than MAX_CHARACTERS_TRACKED, print how many there are */
+	/* if there are any untracked characters, print how many there are */
 	if ( untrackedCharacters > 0 ) {
 		(void)putchar('\n');
 		(void)printf("Untracked characters: %d", untrackedCharacters);

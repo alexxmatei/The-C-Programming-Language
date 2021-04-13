@@ -18,14 +18,14 @@ typedef unsigned char bool;
 #define DECIMAL_PRECISION 2 /* the number of decimals used for the percentages */
 #define MIN_DECIMAL_VAL (1 / pow(10, DECIMAL_PRECISION)) /* get minimum decimal value based on precision */
 #define MAX_PERCENTAGE 100
-#define MAX_NR_WIDTH (int)log10(MAX_PERCENTAGE) + 1 /* obtain the max number width based on the widest number, the maximum percentage */
+#define MAX_PERCENTAGE_NR_WIDTH (int)log10(MAX_PERCENTAGE) + 1 /* obtain the width of the maximum percentage number */
 #define MAX_OCCURRENCES_INDEX_NR 99 /* the maximum number to be displayed as an index under the histogram */
 #define S10_C 10 /* signed value constant */
 
 /* printf format defines */
-#define PRINTF_NR_1_WIDTH (DECIMAL_PRECISION + MAX_NR_WIDTH + 1) /* the number plus the '.' */
+#define PRINTF_NR_1_WIDTH (DECIMAL_PRECISION + MAX_PERCENTAGE_NR_WIDTH + 1) /* the number plus the '.' */
 #define CHARS_BETWEEN_NR1_NR2 4 /* the number of characters between the 2 numbers in the printf format string: "% - " */
-#define PRINTF_NR_2_WIDTH (DECIMAL_PRECISION + MAX_NR_WIDTH + 1) /* the number plus the '.' */
+#define PRINTF_NR_2_WIDTH (DECIMAL_PRECISION + MAX_PERCENTAGE_NR_WIDTH + 1) /* the number plus the '.' */
 #define CHARS_AFTER_NR2 3 /* the number of characters after the 2nd number in the printf format string: "%: " */
 #define PRINTF_TEXT_LEN PRINTF_NR_1_WIDTH + CHARS_BETWEEN_NR1_NR2 + PRINTF_NR_2_WIDTH + CHARS_AFTER_NR2
 
@@ -98,8 +98,8 @@ int main()
 	/* draw the histogram */
 	{
 		int prc[HIST_HEIGHT] = { 0 };
-		/* go through the top of the histogram to the bottom */
 		if ( totalCharactersTracked > 0 ) {
+			/* go through the top of the histogram to the bottom */
 			for ( int i = HIST_HEIGHT; i >= 0; --i ) {
 				if ( i != 0 ) {
 /* ignore -Wconversion for the line between the #pragma statements */
@@ -170,7 +170,7 @@ int main()
 		(void)printf("%-3c", characters[i]);
 	}
 
-	/* prints the word occurrence for each word width indicated by the index */
+	/* prints the character occurrence frequency as a number indicated by an index */
 	/* if the maximum number of occurrences is small enough,
 	 * this is done right below the index row */
 	if ( max <= MAX_OCCURRENCES_INDEX_NR ) {

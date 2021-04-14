@@ -13,7 +13,7 @@ typedef unsigned char bool;
 #define TRUE  (bool)1u
 #define FALSE (bool)0u
 
-#define MAX_CHARACTERS_TRACKED 5 /* maximum characters tracked by the histogram */
+#define MAX_CHARACTERS_TRACKED 30 /* maximum characters tracked by the histogram */
 #define HIST_HEIGHT  20 /* height of the histogram */
 #define DECIMAL_PRECISION 2 /* the number of decimals used for the percentages */
 #define MIN_DECIMAL_VAL (1 / pow(10, DECIMAL_PRECISION)) /* get minimum decimal value based on precision */

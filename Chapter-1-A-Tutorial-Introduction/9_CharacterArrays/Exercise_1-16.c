@@ -27,7 +27,9 @@ int main()
 		}
 	}
 	if ( max > 0 ) { /* there was a line */
-		(void)printf("%s", longest);
+		(void)printf("Longest line: %s", longest);
+		(void)printf("Length: %d", max);
+		(void)printf(" (the '\\0' character is taken into account as well)");
 	}
 	return 0;
 }

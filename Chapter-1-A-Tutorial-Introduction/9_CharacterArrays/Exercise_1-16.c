@@ -39,6 +39,7 @@ int getsline(char s[], int lim)
 {
 	int c;
 	int i;
+	int l_returnValue;
 
 	for ( i = 0; (i < (lim - 1)) && ((c = getchar()) != EOF) && (c != '\n'); ++i ) {
 		s[i] = c;
@@ -46,9 +47,13 @@ int getsline(char s[], int lim)
 	if ( c == '\n' ) {
 		s[i] = c;
 		++i;
+		l_returnValue = i;
+	}
+	else {
+		l_returnValue = -1;
 	}
 	s[i] = '\0';
-	return i;
+	return l_returnValue;
 }
 
 /* copy: copy 'from' into 'to'; assume to is big enough */

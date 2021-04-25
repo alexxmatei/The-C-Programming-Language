@@ -17,7 +17,7 @@ int getsline(void);
 void copy(void);
 
 /* print longest input line; specialized version */
-main()
+int main()
 {
 	int len;
 	extern int max;
@@ -37,7 +37,8 @@ main()
 /* getsline: specialized version */
 int getsline(void)
 {
-	int c, i;
+	int c;
+	int i;
 	extern char line[];
 
 	for (i=0; i < MAXLINE-1
@@ -55,7 +56,8 @@ int getsline(void)
 void copy(void)
 {
 	int i;
-	extern char line[], longest[];
+	extern char line[];
+	extern char longest[];
 
 	i = 0;
 	while ((longest[i] = line[i]) != '\0')

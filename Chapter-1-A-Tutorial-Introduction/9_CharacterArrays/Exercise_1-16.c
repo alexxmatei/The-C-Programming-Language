@@ -6,7 +6,8 @@
  */
 
 #include <stdio.h>
-#define MAXLINE 1000 /* maximum input line size */
+#define MAXINPUTLINE 5 /* maximum input line size */
+#define MAXLINE MAXINPUTLINE + 2 /* maximum array size (includes the \n character) */
 
 int getsline(char line[], int maxline);
 void copy(char to[], char from[]);
@@ -21,6 +22,11 @@ int main()
 
 	max = 0;
 	for ( len = getsline(line, MAXLINE); len > 0; len = getsline(line, MAXLINE) ) {
+
+		/* DEBUG - Start */
+		printf("len: %d\n", len);
+		/* DEBUG - End */
+
 		if ( len > max ) {
 			max = len;
 			copy(longest, line);

@@ -7,8 +7,8 @@
 
 #include <stdio.h>
 #define MAXINPUTLINE 5 /* maximum input line size */
-#define MAXLINE MAXINPUTLINE + 2 /* maximum array size (includes the \n character) */
-#define MAXLENSIZE MAXLINE - 1
+#define MAXLINE (MAXINPUTLINE + 2) /* maximum array size (includes the \n character) */
+#define MAXLENSIZE (MAXLINE - 1)
 
 int getsline(char line[], int maxline);
 void copy(char to[], char from[]);
@@ -34,12 +34,13 @@ int main()
 				printf("savedLen: %d\n", savedLen);
 				/* DEBUG - End */
 				savedLen = 0;
-				longLine = 0;
 			}
 		}
 		else {
 			savedLen += len;
+			/* DEBUG - Start */
 			printf("savedLen: %d\n", savedLen);
+			/* DEBUG - End */
 			savedLen = 0;
 		}
 

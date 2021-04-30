@@ -33,6 +33,10 @@ int main()
 				/* DEBUG - Start */
 				printf("savedLen: %d\n", savedLen);
 				/* DEBUG - End */
+				if ( savedLen > max ) {
+					max = savedLen;
+					copy(longest, line);
+				}
 				savedLen = 0;
 			}
 		}
@@ -41,14 +45,13 @@ int main()
 			/* DEBUG - Start */
 			printf("savedLen: %d\n", savedLen);
 			/* DEBUG - End */
+			if ( savedLen > max ) {
+				max = savedLen;
+				copy(longest, line);
+			}
 			savedLen = 0;
 		}
 
-
-		if ( len > max ) {
-			max = len;
-			copy(longest, line);
-		}
 	}
 	if ( max > 0 ) { /* there was a line */
 		(void)printf("Longest line: %s", longest);

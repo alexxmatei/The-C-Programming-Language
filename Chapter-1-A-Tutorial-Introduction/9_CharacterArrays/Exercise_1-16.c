@@ -21,40 +21,36 @@ int main()
 	int savedLen = 0;
 	char line[MAXLINE];		/* current input line */
 	char longest[MAXLINE];	/* longest line saved here */
+	char startOfLine[MAXLINE];
 
 	max = 0;
 	for ( len = getsline(line, MAXLINE); len > 0; len = getsline(line, MAXLINE) ) {
-		if ( len == MAXLENSIZE ) {
-			if ( line[MAXLINE - 2] != '\n' ) {
-				savedLen += MAXLENSIZE;
+		savedLen += len;
+		if ( (len != MAXLENSIZE) || (line[MAXLINE - 2] == '\n') ) {
+			if ( savedLen == len ) {
+				copy(startOfLine, line);
 			}
-			else {
-				savedLen += len;
-				/* DEBUG - Start */
-				printf("savedLen: %d\n", savedLen);
-				/* DEBUG - End */
-				if ( savedLen > max ) {
-					max = savedLen;
-					copy(longest, line);
-				}
-				savedLen = 0;
-			}
-		}
-		else {
-			savedLen += len;
 			/* DEBUG - Start */
 			printf("savedLen: %d\n", savedLen);
 			/* DEBUG - End */
 			if ( savedLen > max ) {
 				max = savedLen;
-				copy(longest, line);
+				copy(longest, startOfLine);
 			}
 			savedLen = 0;
 		}
-
+		else {
+			if ( savedLen == len ) {
+				copy(startOfLine, line);
+			}
+			if ( savedLen > max ) {
+				max = savedLen;
+				copy(longest, startOfLine);
+			}
+		}
 	}
 	if ( max > 0 ) { /* there was a line */
-		(void)printf("Longest line: %s", longest);
+		(void)printf("Longest line: %s\n", longest);
 		(void)printf("Length: %d", max);
 		(void)printf(" (the '\\0' character is taken into account as well)");
 	}

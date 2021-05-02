@@ -29,8 +29,8 @@ int main()
 int power(int base, int n)
 {
 	int p;
-
-	for (p = 1; n > 0; --n) {
+	int i = n;
+	for (p = 1; i > 0; --i) {
 		p = p * base;
 	}
 	return p;

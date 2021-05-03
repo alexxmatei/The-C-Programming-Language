@@ -6,7 +6,7 @@
  */
 
 #include <stdio.h>
-#define MAXINPUTLINE 5 /* maximum input line size */
+#define MAXINPUTLINE 1000 /* maximum input line size */
 #define MAXLINE (MAXINPUTLINE + 2) /* maximum array size (includes the \n character) */
 #define MAXLENSIZE (MAXLINE - 1)
 
@@ -30,9 +30,6 @@ int main()
 			if ( savedLen == len ) {
 				copy(startOfLine, line);
 			}
-			/* DEBUG - Start */
-			printf("savedLen: %d\n", savedLen);
-			/* DEBUG - End */
 			if ( savedLen > max ) {
 				max = savedLen;
 				copy(longest, startOfLine);

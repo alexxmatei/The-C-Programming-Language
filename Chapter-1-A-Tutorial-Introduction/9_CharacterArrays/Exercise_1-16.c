@@ -18,12 +18,12 @@ int main()
 {
 	int len;					/* current line length */
 	int max;					/* maximum length seen so far */
-	int savedLen = 0;			/* keeps track of the length of arbitrarily long lines */
+	int savedLen;				/* keeps track of the length of arbitrarily long lines */
 	char line[MAXLINE];			/* current input line up to MAXLENSIZE limit */
 	char longest[MAXLINE];		/* longest line saved here */
 	char startOfLine[MAXLINE];	/* stores the the first MAXLENSIZE characters of a line */
 
-	max = 0;
+	max = savedLen = 0;
 	for ( len = getsline(line, MAXLINE); len > 0; len = getsline(line, MAXLINE) ) {
 		savedLen += len;
 		/* if this is the end of the line */

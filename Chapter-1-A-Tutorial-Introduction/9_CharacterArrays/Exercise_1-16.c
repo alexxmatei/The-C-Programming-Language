@@ -6,7 +6,8 @@
  */
 
 #include <stdio.h>
-#define MAXINPUTLINE 1000			/* maximum input line size */
+#include <string.h>
+#define MAXINPUTLINE 1000 				/* maximum input line size */
 #define MAXLINE (MAXINPUTLINE + 2) 	/* maximum array size (includes the \n character) */
 #define MAXLENSIZE (MAXLINE - 1) 	/* maximum line size, does not include the \0 character */
 
@@ -26,31 +27,25 @@ int main()
 	max = savedLen = 0;
 	for ( len = getsline(line, MAXLINE); len > 0; len = getsline(line, MAXLINE) ) {
 		savedLen += len;
-		/* if this is the end of the line */
-		if ( (len != MAXLENSIZE) || (line[MAXLINE - 2] == '\n') ) {
 		/* condition only valid at the start of a new line */
 		/* this is to avoid unnecessarily calling the copy function */
-			if ( savedLen == len ) {
-				copy(startOfLine, line);
-			}
-			if ( savedLen > max ) {
-				max = savedLen;
+		if ( savedLen == len ) {
+			copy(startOfLine, line);
+		}
+
+		if ( (savedLen > max) ) {
+			max = savedLen;
+			if ( strncmp(longest, startOfLine, MAXLINE) != 0 ) {
 				copy(longest, startOfLine);
 			}
+		}
+
+		/* if this is the end of the line */
+		if ( (len != MAXLENSIZE) || (line[MAXLINE - 2] == '\n') ) {
 			savedLen = 0;
 		}
-		else {
-			/* condition only valid at the start of a new line */
-			/* this is to avoid unnecessarily calling the copy function */
-			if ( savedLen == len ) {
-				copy(startOfLine, line);
-			}
-			if ( savedLen > max ) {
-				max = savedLen;
-				copy(longest, startOfLine);
-			}
-		}
 	}
+
 	if ( max > 0 ) { /* there was a line */
 		(void)printf("Longest line: %s\n", longest);
 		(void)printf("Length: %d", max);

@@ -2,39 +2,25 @@
  * Exercise_1.17.c
  *
  *  Created on: 7 May 2021
- *      Author: alexx
- */
-
-/*
- * Exercise_1-16.c
- *
- *  Created on: 21 Apr 2021
  *      Author: Al
  */
 
 #include <stdio.h>
-#define MAXLINE 1000 /* maximum input line size */
+#define MAXLINE 1000 		/* maximum input line size */
+#define PRINTED_LINE_LEN 80	/* the length of lines to be printed */
 
 int getsline(char line[], int maxline);
-void copy(char to[], char from[]);
 
-/* print longest input line */
+/* print all lines over 80 characters input line */
 int main()
 {
 	int len;				/* current line length */
-	int max;				/* maximum length seen so far */
 	char line[MAXLINE];		/* current input line */
-	char longest[MAXLINE];	/* longest line saved here */
 
-	max = 0;
 	for ( len = getsline(line, MAXLINE); len > 0; len = getsline(line, MAXLINE) ) {
-		if ( len > max ) {
-			max = len;
-			copy(longest, line);
+		if ( len > PRINTED_LINE_LEN ) {
+			(void)printf("%s", line);
 		}
-	}
-	if ( max > 0 ) { /* there was a line */
-		(void)printf("%s", longest);
 	}
 	return 0;
 }
@@ -54,15 +40,4 @@ int getsline(char s[], int lim)
 	}
 	s[i] = '\0';
 	return i;
-}
-
-/* copy: copy 'from' into 'to'; assume to is big enough */
-void copy(char to[], char from[])
-{
-	int i;
-
-	i = 0;
-	for ( to[i] = from[i]; to[i] != '\0'; to[i] = from[i] ) {
-		++i;
-	}
 }

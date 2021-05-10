@@ -7,6 +7,9 @@
 
 #include <stdio.h>
 #define MAXLINE 1000 /* maximum input line size */
+typedef char bool;
+#define TRUE  (bool) 1u
+#define FALSE (bool) 0u
 
 int getsline(char line[], int maxline);
 void copy(char to[], char from[]);
@@ -37,8 +40,12 @@ int getsline(char s[], int lim)
 {
 	int c;
 	int i;
+	bool l_loopCondition_b = TRUE;
 
-	for ( i = 0; (i < (lim - 1)) && ((c = getchar()) != EOF) && (c != '\n'); ++i ) {
+	for ( i = 0; l_loopCondition_b == TRUE; ++i ) {
+		c = getchar();
+		l_loopCondition_b = ((i < (lim - 1)) && (c != EOF) && (c != '\n'));
+		printf("%d", l_loopCondition_b);
 		s[i] = c;
 	}
 	if ( c == '\n' ) {

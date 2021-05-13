@@ -10,13 +10,18 @@
 
 int getsline(char line[], int maxline);
 
-/* mirrors user input */
+/* mirrors user input, removes trailing blanks and tabs */
 int main()
 {
 	int len;				/* current line length */
 	char line[MAXLINE];		/* current input line */
 
 	for ( len = getsline(line, MAXLINE); len > 0; len = getsline(line, MAXLINE) ) {
+		for ( int i = len - 2; (line[i] == ' ') || (line[i] == '\t'); --i) {
+			line[i] = line[i + 1]; /* move '\n' character to the ' ' or '\t' character position */
+			line[i + 1] = line [i + 2]; /* move the '\0' character to the previous '\n' position */
+		}
+
 		(void)printf("%s", line);
 	}
 

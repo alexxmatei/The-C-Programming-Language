@@ -10,7 +10,7 @@
 
 int getsline(char line[], int maxline);
 
-/* mirrors user input, removes trailing blanks and tabs */
+/* mirrors user input, removes trailing blanks, tabs and removes blank lines */
 int main()
 {
 	int len;				/* current line length */
@@ -21,8 +21,10 @@ int main()
 			line[i] = line[i + 1]; /* move '\n' character to the ' ' or '\t' character position */
 			line[i + 1] = line [i + 2]; /* move the '\0' character to the previous '\n' position */
 		}
-
-		(void)printf("%s", line);
+		/* if not a blank line (ignore, or delete entirely blank lines) */
+		if ( (len != 1) && (line[0] != '\n') ) {
+			(void)printf("%s", line);
+		}
 	}
 
 	return 0;

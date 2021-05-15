@@ -17,11 +17,13 @@ int main()
 	char line[MAXLINE];		/* current input line */
 
 	for ( len = getsline(line, MAXLINE); len > 0; len = getsline(line, MAXLINE) ) {
+		/* start from len - 2 skipping the '\n' & '\0' characters at the end */
+		/* eliminate all trailing blanks and tab characters */
 		for ( int i = len - 2; (line[i] == ' ') || (line[i] == '\t'); --i) {
 			line[i] = line[i + 1]; /* move '\n' character to the ' ' or '\t' character position */
 			line[i + 1] = line [i + 2]; /* move the '\0' character to the previous '\n' position */
 		}
-		/* if not a blank line (ignore, or delete entirely blank lines) */
+		/* if not a blank line (ignore, therefore delete entirely blank lines) */
 		if ( (len != 1) && (line[0] != '\n') ) {
 			(void)printf("%s", line);
 		}

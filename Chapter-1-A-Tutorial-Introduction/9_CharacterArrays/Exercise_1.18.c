@@ -10,7 +10,8 @@
 
 int getsline(char line[], int maxline);
 
-/* mirrors user input, removes trailing blanks, tabs and removes blank lines */
+/* mirrors user input, removes trailing blanks and tabs */
+/* also removes empty lines containing only blanks and tabs */
 int main()
 {
 	int len;				/* current line length */

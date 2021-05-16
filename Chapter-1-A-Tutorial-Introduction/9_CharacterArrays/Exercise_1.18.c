@@ -6,9 +6,15 @@
  */
 
 #include <stdio.h>
+
+typedef char bool;
+
 #define MAXLINE 1000 /* maximum input line size */
+#define TRUE  (bool) 1u
+#define FALSE (bool) 0u
 
 int getsline(char line[], int maxline);
+bool checkGetslineCondition (int i, int lim, int *c);
 
 /* mirrors user input, removes trailing blanks and tabs */
 /* also removes empty lines containing only blanks and tabs */
@@ -39,7 +45,7 @@ int getsline(char s[], int lim)
 	int c;
 	int i;
 
-	for ( i = 0; (i < (lim - 1)) && ((c = getchar()) != EOF) && (c != '\n'); ++i ) {
+	for ( i = 0; checkGetslineCondition(i, lim, &c) == TRUE ; ++i ) {
 		s[i] = c;
 	}
 	if ( c == '\n' ) {
@@ -48,4 +54,10 @@ int getsline(char s[], int lim)
 	}
 	s[i] = '\0';
 	return i;
+}
+
+bool checkGetslineCondition (int i, int lim, int *c)
+{
+	*c = getchar();
+	return ( (i < (lim - 1)) && (*c != EOF) && (*c != '\n') ) ? TRUE : FALSE;
 }

@@ -3,6 +3,9 @@
 **/.settings
 **/.cproject
 **/.project
+**/latex
+**/*html*
+**/*Doxy*
 **/*cppcheck*
 **/*MISRA*
 **/Debug
